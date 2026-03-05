@@ -289,7 +289,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `CLI-Tacts` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: Delete a person**
 
@@ -314,7 +314,81 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-*{More to be added}*
+**Use case: Add student to tutorial group**
+
+**MSS**
+
+1. User requests to add a student, providing their details and a tutorial group identifier (e.g., G04).
+2. CLI-Tacts validates the details and the tutorial group.
+3. CLI-Tacts adds the student to the specific tutorial group and saves the data locally.
+4. CLI-Tacts displays a success message with the student's details.
+
+      Use case ends.
+
+**Extensions**
+
+1a. The tutorial group identifier is missing.
+   1a1. CLI-Tacts adds the student to a default "Unassigned" group.
+
+   Use case ends.
+
+2a. The student already exists in that tutorial group (Duplicate detected).
+   2a1. CLI-Tacts shows an error message indicating the student is already enrolled.
+
+   Use case ends.
+
+**Use case: Mark student attendanc**
+
+**MSS**
+
+1. User requests to list students in a specific tutorial group.
+2. CLI-Tacts shows the list of students for that group.
+3. User requests to mark a specific student (by index or name) as "Present" for the current week.
+4. CLI-Tacts updates the attendance record for that student.x
+5. CLI-Tacts confirms the attendance status change.
+
+      Use case ends.
+
+**Extensions**
+
+1a. The specified tutorial group does not exist.
+   1a1. CLI-Tacts shows an error message.
+
+   Use case ends.
+
+3a. The user provides an invalid index or name.
+   3a1. CLI-Tacts shows an error message.
+
+   Use case resumes at step 2.
+
+3b. User wants to mark the entire group as present (Bulk action).
+   3b1. User enters a bulk command (e.g., markAll).
+   3b2. CLI-Tacts updates all students in the filtered list.
+
+   Use case ends.
+
+**Use case: Search up student to view attendance record**
+**MSS**
+
+1. User requests to find a student by name or student ID.
+2. CLI-Tacts searches the local database and finds the matching student.
+3. CLI-Tacts displays the student's profile, including a summary of their attendance (eg., "Present: 5/6 weeks").
+4. CLI-Tacts provides a visual breakdown of which specific weeks were attended.
+
+   Use case ends.
+
+**Extensions**
+
+2a. No student matches the search criteria.
+   2a1. CLI-Tacts displays a "No results found" message.
+
+   Use case ends.
+
+2b. Multiple students share the same name.
+   2b1. CLI-Tacts lists all matching students with their tutorial group IDs.
+   2b2. User selects the correct student by index.
+
+   Use case resumes at step 3.
 
 ### Non-Functional Requirements
 
