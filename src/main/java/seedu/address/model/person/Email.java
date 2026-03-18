@@ -6,11 +6,23 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents a Person's email in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
- * Format: Exactly one "@" with no spaces, at least one character before and after the "@".
+ * Format: local-part@u.nus.edu.sg. Local part must contain only alphanumeric characters and/or
+ * special characters (+_.-), and the domain must be @u.nus.edu.sg.
  */
 public class Email {
 
-    public static final String MESSAGE_CONSTRAINTS = "Invalid email format. Example: student@domain.com";
+    private static final String SPECIAL_CHARACTERS = "+_.-";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Emails should be of the format local-part@u.nus.edu.sg and adhere to the following constraints:\n"
+            + "1. The local-part should only contain alphanumeric characters and the special characters "
+            + "(" + SPECIAL_CHARACTERS + "), with no consecutive special characters.\n"
+            + "2. This is followed by a '@' and then a domain name (u.nus.edu.sg).";
+
+    private static final String ALPHANUMERIC_NO_UNDERSCORE = "[^\\W_]+";
+    private static final String LOCAL_PART_REGEX =
+            "^" + ALPHANUMERIC_NO_UNDERSCORE + "([" + SPECIAL_CHARACTERS + "]" + ALPHANUMERIC_NO_UNDERSCORE + ")*";
+    private static final String DOMAIN_REGEX = "@u\\.nus\\.edu\\.sg$";
+    public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + DOMAIN_REGEX;
 
     public final String value;
 
@@ -29,23 +41,13 @@ public class Email {
 
     /**
      * Returns if a given string is a valid email.
-     * Exactly one "@", no spaces, at least one char before and after "@".
+     * Must match local-part@u.nus.edu.sg format.
      */
     public static boolean isValidEmail(String test) {
         if (test == null) {
             throw new NullPointerException();
         }
-        if (test.isEmpty()) {
-            return false;
-        }
-        if (test.contains(" ")) {
-            return false;
-        }
-        int atIndex = test.indexOf('@');
-        if (atIndex == -1 || test.indexOf('@', atIndex + 1) != -1) {
-            return false; // No @ or multiple @
-        }
-        return atIndex > 0 && atIndex < test.length() - 1;
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
