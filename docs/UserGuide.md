@@ -182,6 +182,29 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+### Marking attendance : `mark`
+
+Marks a student as present for a specific week during a tutorial session.
+
+Format: `mark INDEX w/WEEK`
+
+Where:
+* `INDEX` refers to the index number shown in the displayed student list and **must be a positive integer** 1, 2, 3, …​
+* `WEEK` is the week number to mark attendance for and **must be a positive integer**
+
+#### Important notes:
+* Each student can be marked as attended only once per week. Attempting to mark the same student for the same week twice will result in an error.
+* After marking, the attendance status is updated immediately and saved automatically.
+* The `mark` command works with the currently displayed list. If you need to mark a specific student, use `find` first to filter the list, then use the appropriate index.
+
+Examples:
+* `mark 1 w/2` — marks the 1st student in the displayed list as attended for week 2.
+* `find n/John` followed by `mark 1 w/1` — finds all students named "John" and marks the 1st result as attended for week 1.
+* `find t/T01` followed by `mark 3 w/4` — finds all students in tutorial group T01 and marks the 3rd result as attended for week 4.
+
+#### Attendance tracking:
+CLI-Tacts tracks attendance on a **per-week basis**. Each week's attendance is stored separately, allowing you to manage attendance records across the entire semester with a single command.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from CLI-Tacts.
@@ -237,4 +260,5 @@ Action | Format, Examples
 **Edit** | `edit INDEX [n/NAME] [i/STUDENT_ID] [e/EMAIL] [p/PHONE_NUMBER] [th/TELE_HANDLE] [t/TUTORIAL_GROUP]`<br> e.g.,`edit 2 n/James Lee t/T03`
 **Find** | `find n/NAME_KEYWORD [t/TUTORIAL_GROUP]`<br> e.g., `find n/James t/T01`
 **List** | `list`
+**Mark** | `mark INDEX w/WEEK`<br> e.g., `mark 1 w/2`
 **Help** | `help`
