@@ -24,22 +24,19 @@ public class UnmarkCommandParser implements Parser<UnmarkCommand> {
      */
     public UnmarkCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_WEEK, PREFIX_TUTORIAL_GROUP);
+        String trimmed = args.trim();
+        String tokenizeInput = trimmed.startsWith(PREFIX_TUTORIAL_GROUP.getPrefix())
+                ? " " + trimmed
+                : trimmed;
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(tokenizeInput, PREFIX_WEEK, PREFIX_TUTORIAL_GROUP);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_WEEK, PREFIX_TUTORIAL_GROUP);
 
         Optional<String> weekValue = argMultimap.getValue(PREFIX_WEEK);
         if (weekValue.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
         }
 
-        int week;
-        try {
-            week = Integer.parseInt(weekValue.get().trim());
-            if (week <= 0) {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE), e);
-        }
+        int week = parseWeek(weekValue.get());
 
         Optional<String> tutorialGroupValue = argMultimap.getValue(PREFIX_TUTORIAL_GROUP);
         String preamble = argMultimap.getPreamble();
@@ -60,13 +57,23 @@ public class UnmarkCommandParser implements Parser<UnmarkCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
         }
 
-        Index index;
         try {
-            index = ParserUtil.parseIndex(preamble);
+            Index index = ParserUtil.parseIndex(preamble);
+            return new UnmarkCommand(index, week);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE), pe);
         }
+    }
 
-        return new UnmarkCommand(index, week);
+    private static int parseWeek(String weekStr) throws ParseException {
+        try {
+            int week = Integer.parseInt(weekStr.trim());
+            if (week <= 0) {
+                throw new NumberFormatException();
+            }
+            return week;
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE), e);
+        }
     }
 }
