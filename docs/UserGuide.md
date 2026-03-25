@@ -209,6 +209,29 @@ Examples:
 #### Attendance tracking:
 CLI-Tacts tracks attendance on a **per-week basis**. Each week's attendance is stored separately, allowing you to manage attendance records across the entire semester with a single command.
 
+### Unmarking attendance : `unmark`
+
+Unmarks a student's attendance for a specific week during a tutorial session.
+
+Formats:
+
+* `unmark INDEX w/WEEK`
+* `unmark t/TUTORIAL_GROUP w/WEEK`
+
+Where:
+* `INDEX` refers to the index number shown in the displayed student list and **must be a positive integer** 1, 2, 3, â€¦â€‹
+* `WEEK` is the week number to unmark attendance for and **must be a positive integer**
+* `TUTORIAL_GROUP` must be `T` followed by exactly 2 digits (e.g., `T01`, `T12`)
+
+#### Important notes:
+* If the student is already unmarked for the specified week, CLI-Tacts will show an error.
+* For group unmark, `t/` is required (e.g., `unmark t/T01 w/2`).
+* Group unmark errors if there are no students in the specified tutorial group, or if all students are already unmarked for that week.
+
+Examples:
+* `unmark 1 w/2` â€” unmarks the 1st student in the displayed list for week 2.
+* `unmark t/T01 w/4` â€” unmarks attendance for all marked students in tutorial group T01 for week 4.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from CLI-Tacts.
@@ -265,4 +288,5 @@ Action | Format, Examples
 **Find** | `find n/NAME_KEYWORD [t/TUTORIAL_GROUP]`<br> e.g., `find n/James t/T01`
 **List** | `list`
 **Mark** | `mark INDEX w/WEEK`<br> e.g., `mark 1 w/2`
+**Unmark** | `unmark INDEX w/WEEK`<br> e.g., `unmark 1 w/2` or `unmark t/T01 w/2`
 **Help** | `help`
