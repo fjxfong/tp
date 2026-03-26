@@ -17,7 +17,7 @@ Instead of juggling fragmented spreadsheets or slow GUI-based portals, CLI-Tacts
 CLI-Tacts is built for university Teaching Assistants (TAs) in CS2040S who:
 
 - Manage 3–5 tutorial groups of ~20 students each
-- Need to mark attendance quickly during live sessions
+- Need to mark or unmark attendance quickly during live sessions
 - Are comfortable with CLI tools and value speed over clicking
 - Prefer locally-stored data over cloud-dependent portals
 
@@ -25,13 +25,13 @@ CLI-Tacts is built for university Teaching Assistants (TAs) in CS2040S who:
 
 ## Value Proposition
 
-CLI-Tacts helps TAs efficiently manage student details and attendance across multiple tutorial groups through a fast CLI. By centralising student records locally, TAs can perform administrative tasks — adding, finding, marking, and removing students — without disrupting their real-time teaching flow.
+CLI-Tacts helps TAs efficiently manage student details and attendance across multiple tutorial groups through a fast CLI. By centralising student records locally, TAs can perform administrative tasks — adding, finding, marking/unmarking attendance, and removing students — without disrupting their real-time teaching flow.
 
 **What CLI-Tacts does:**
 - Add and manage student records (name, student ID, email, tutorial group)
 - Delete students who drop or change class
 - Search for students by name (partial matching supported)
-- Mark weekly attendance by student ID
+- Mark or unmark weekly attendance by index
 - Automatically save all changes to disk
 
 **What CLI-Tacts does NOT do:**
@@ -60,12 +60,12 @@ Adds a new student record. Duplicate student IDs are rejected.
 ### 2. Delete a Student
 
 ```
-delete i/<STUDENT_ID>
+delete <INDEX>
 ```
 
-Example: `delete i/A0123456X`
+Example: `delete 3`
 
-Removes a student from the system by their 9-character student ID.
+Removes the student at the specified index in the currently displayed list.
 
 ---
 
@@ -88,16 +88,26 @@ Supports partial, case-insensitive matching.
 ### 4. Mark Attendance
 
 ```
-mark w<WEEK_NUMBER> i/<STUDENT_ID>
+mark <INDEX> w/<WEEK_NUMBER>
 ```
 
-Example: `mark w3 i/A0123456X` — marks the student as present for Week 3.
+Example: `mark 1 w/3` — marks the student as present for Week 3.
 
 ---
 
-### 5. Auto-Save
+### 5. Unmark Attendance
 
-All changes (add, delete, edit, mark, clear) are saved automatically to a local `data.json` file. Data is loaded on startup — no manual save needed.
+```
+unmark <INDEX> w/<WEEK_NUMBER>
+```
+
+Example: `unmark 1 w/3` — unmarks the student's attendance for Week 3.
+
+---
+
+### 6. Auto-Save
+
+All changes (add, delete, edit, mark, unmark, clear) are saved automatically to a local `data.json` file. Data is loaded on startup — no manual save needed.
 
 ---
 
@@ -106,9 +116,10 @@ All changes (add, delete, edit, mark, clear) are saved automatically to a local 
 | Action           | Format                                              |
 |------------------|-----------------------------------------------------|
 | Add student      | `add n/<NAME> i/<STUDENT_ID> e/<EMAIL> t/<TUTORIAL_GROUP>` |
-| Delete student   | `delete i/<STUDENT_ID>`                             |
+| Delete student   | `delete <INDEX>`                                    |
 | Find by name or tutorial group | `find n/<NAME_KEYWORD> [MORE_KEYWORDS]... [t/<TUTORIAL_GROUP>]...` |
-| Mark attendance  | `mark w<WEEK> i/<STUDENT_ID>`                       |
+| Mark attendance  | `mark <INDEX> w/<WEEK>`                             |
+| Unmark attendance | `unmark <INDEX> w/<WEEK>`                          |
 | List all         | `list`                                              |
 | Clear all        | `clear`                                             |
 | Exit             | `exit`                                              |
