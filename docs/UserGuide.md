@@ -300,6 +300,37 @@ The **Attendance Statistics Panel** is displayed at the bottom of the main windo
 - The panel reflects the **currently filtered list**. If you use `find` to narrow down to a subset of students, the statistics will update to reflect only those students.
 - The panel scrolls horizontally if the window is too narrow to show all 13 weeks at once.
 
+### Exporting student data : `export`
+
+Exports all student data to a CSV file named `export.csv` in the same folder as the JAR file.
+
+Format: `export`
+
+#### CSV file format
+
+The file contains one header row followed by one row per student:
+
+| Column | Description |
+|--------|-------------|
+| `Student` | Full name of the student |
+| `StudentID` | Student ID (e.g. `A0123456X`) |
+| `Email` | NUS email address |
+| `Tutorial` | Tutorial group (e.g. `T01`) |
+| `Week1` – `Week13` | Attendance for each week: `1` = present, `0` = absent |
+
+#### Notes
+
+- The export always includes **all** students in the address book, regardless of any active `find` filter.
+- If `export.csv` already exists in the folder, it will be **overwritten**.
+- All string fields are wrapped in double quotes in the CSV output.
+
+Example output (`export.csv`):
+```
+Student,StudentID,Email,Tutorial,Week1,Week2,...,Week13
+"Alice Pauline","A0123456A","alice@u.nus.edu","T01",1,0,0,0,0,0,0,0,0,0,0,0,0
+"Benson Meier","A0123456B","johnd@u.nus.edu","T02",0,0,0,0,0,0,0,0,0,0,0,0,0
+```
+
 ### Saving the data
 
 CLI-Tacts data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -341,6 +372,7 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [i/STUDENT_ID] [e/EMAIL] [p/PHONE_NUMBER] [th/TELE_HANDLE] [t/TUTORIAL_GROUP]`<br> e.g.,`edit 2 n/James Lee t/T03`
+**Export** | `export`
 **Find** | `find [n/NAME_KEYWORD] [t/TUTORIAL_GROUP] [e/EMAIL] [th/TELE_HANDLE]`<br> e.g., `find n/James t/T01 e/james@u.nus.edu`
 **List** | `list`
 **Mark** | `mark INDEX w/WEEK`<br> e.g., `mark 1 w/2`
