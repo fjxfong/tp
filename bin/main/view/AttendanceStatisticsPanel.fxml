@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      spacing="10" styleClass="attendance-statistics-panel">
+  <Label text="Attendance Statistics" styleClass="label-bright" />
+  <ScrollPane fx:id="scrollPane" fitToHeight="true" hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED"
+              prefHeight="150" styleClass="attendance-statistics-scroll-pane" VBox.vgrow="ALWAYS" />
+</VBox>

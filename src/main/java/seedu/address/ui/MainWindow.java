@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private AttendanceStatisticsPanel attendanceStatisticsPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -47,6 +48,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane attendanceStatisticsPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -117,6 +121,9 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         resultDisplay.setFeedbackToUser(WELCOME_MESSAGE);
+
+        attendanceStatisticsPanel = new AttendanceStatisticsPanel(logic.getFilteredPersonList());
+        attendanceStatisticsPanelPlaceholder.getChildren().add(attendanceStatisticsPanel.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
