@@ -14,11 +14,13 @@ Class UserPrefs
 
 Class UniquePersonList
 Class Person
-Class Address
-Class Email
 Class Name
 Class Phone
-Class Tag
+Class Email
+Class TeleHandle
+Class StudentId
+Class TutorialGroup
+Class Attendance
 
 Class I #FFFFFF
 }
@@ -40,15 +42,20 @@ UniquePersonList --> "~* all" Person
 Person *--> Name
 Person *--> Phone
 Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Person *--> "0..1" TeleHandle
+Person *--> StudentId
+Person *--> TutorialGroup
+Person *--> Attendance
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Phone -[hidden]right-> Email
+Email -[hidden]right-> TeleHandle
+TeleHandle -[hidden]right-> StudentId
+StudentId -[hidden]right-> TutorialGroup
+TutorialGroup -[hidden]right-> Attendance
 
 ModelManager --> "~* filtered" Person
 @enduml
