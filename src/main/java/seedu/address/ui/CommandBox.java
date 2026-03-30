@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,6 +18,8 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private final CommandHistory commandHistory = new CommandHistory();
+    private boolean isHistoryNavigationUpdate = false;
 
     @FXML
     private TextField commandTextField;
@@ -28,7 +31,29 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> {
+            setStyleToDefault();
+            if (!isHistoryNavigationUpdate) {
+                commandHistory.resetNavigation();
+            }
+        });
+
+        commandTextField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.UP) {
+                replaceTextFromHistory(commandHistory.previous(commandTextField.getText()));
+                event.consume();
+            } else if (event.getCode() == KeyCode.DOWN) {
+                replaceTextFromHistory(commandHistory.next(commandTextField.getText()));
+                event.consume();
+            }
+        });
+    }
+
+    private void replaceTextFromHistory(String newText) {
+        isHistoryNavigationUpdate = true;
+        commandTextField.setText(newText);
+        commandTextField.positionCaret(commandTextField.getText().length());
+        isHistoryNavigationUpdate = false;
     }
 
     /**
@@ -42,8 +67,11 @@ public class CommandBox extends UiPart<Region> {
         }
 
         try {
+            commandHistory.add(commandText);
             commandExecutor.execute(commandText);
+            isHistoryNavigationUpdate = true;
             commandTextField.setText("");
+            isHistoryNavigationUpdate = false;
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
