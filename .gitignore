@@ -12,7 +12,8 @@ src/main/resources/docs/
 /*.iml
 
 # Storage/log files
-/data/
+/data/*
+!/data/addressbook.sample.json
 /export.csv
 /config.json
 /preferences.json

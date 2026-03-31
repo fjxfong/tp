@@ -1,0 +1,51 @@
+{
+  "persons" : [ {
+    "name" : "Alex Yeoh",
+    "studentId" : "A0123456A",
+    "email" : "alexyeoh@u.nus.edu",
+    "phone" : "87438807",
+    "teleHandle" : "@alexyeoh",
+    "tutorialGroup" : "T01",
+    "attendance" : [ true, false, false, false, false, false, false, false, false, false, false, false, false ]
+  }, {
+    "name" : "Bernice Yu",
+    "studentId" : "A0123456B",
+    "email" : "berniceyu@u.nus.edu",
+    "phone" : "99272758",
+    "teleHandle" : "@berniceyu",
+    "tutorialGroup" : "T02",
+    "attendance" : [ false, false, false, false, false, false, false, false, false, false, false, false, false ]
+  }, {
+    "name" : "Charlotte Oliveiro",
+    "studentId" : "A0123456C",
+    "email" : "charlotte@u.nus.edu",
+    "phone" : "93210283",
+    "teleHandle" : "@charlotteo",
+    "tutorialGroup" : "T03",
+    "attendance" : [ false, false, false, false, false, false, false, false, false, false, false, false, false ]
+  }, {
+    "name" : "David Li",
+    "studentId" : "A0123456D",
+    "email" : "lidavid@u.nus.edu",
+    "phone" : "91031282",
+    "teleHandle" : "@davidli",
+    "tutorialGroup" : "T04",
+    "attendance" : [ false, false, false, false, false, false, false, false, false, false, false, false, false ]
+  }, {
+    "name" : "Irfan Ibrahim",
+    "studentId" : "A0123456E",
+    "email" : "irfan@u.nus.edu",
+    "phone" : "92492021",
+    "teleHandle" : "@irfanib",
+    "tutorialGroup" : "T05",
+    "attendance" : [ false, false, false, false, false, false, false, false, false, false, false, false, false ]
+  }, {
+    "name" : "Roy Balakrishnan",
+    "studentId" : "A0123456F",
+    "email" : "royb@u.nus.edu",
+    "phone" : "92624417",
+    "teleHandle" : "@roybala",
+    "tutorialGroup" : "T02",
+    "attendance" : [ false, false, false, false, false, false, false, false, false, false, false, false, false ]
+  } ]
+}

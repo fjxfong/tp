@@ -117,6 +117,7 @@ For the single-student form, marking the same student twice for the same week **
 ### 6. Auto-Save
 
 All data-changing commands save automatically. By default the address book is stored at **`data/addressbook.json`** (under the app’s home folder).
+If the data file is missing, CLI-Tacts initializes it from **`data/addressbook.sample.json`**.
 
 ---
 

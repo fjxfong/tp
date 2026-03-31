@@ -1,7 +1,10 @@
 package seedu.address;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -12,6 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.commons.util.ConfigUtil;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
@@ -37,6 +41,7 @@ import seedu.address.ui.UiManager;
 public class MainApp extends Application {
 
     public static final Version VERSION = new Version(0, 2, 2, true);
+    private static final Path SAMPLE_ADDRESS_BOOK_FILE_PATH = Paths.get("data", "addressbook.sample.json");
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -78,6 +83,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         try {
+            ensureAddressBookFileSeeded(storage.getAddressBookFilePath());
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getAddressBookFilePath()
@@ -91,6 +97,23 @@ public class MainApp extends Application {
         }
 
         return new ModelManager(initialData, userPrefs);
+    }
+
+    /**
+     * Copies sample data into the runtime data file when the runtime data file is missing.
+     */
+    private void ensureAddressBookFileSeeded(Path targetPath) {
+        if (FileUtil.isFileExists(targetPath) || !FileUtil.isFileExists(SAMPLE_ADDRESS_BOOK_FILE_PATH)) {
+            return;
+        }
+
+        try {
+            FileUtil.createParentDirsOfFile(targetPath);
+            Files.copy(SAMPLE_ADDRESS_BOOK_FILE_PATH, targetPath, StandardCopyOption.REPLACE_EXISTING);
+            logger.info("Initialized data file " + targetPath + " from sample file " + SAMPLE_ADDRESS_BOOK_FILE_PATH);
+        } catch (IOException e) {
+            logger.warning("Failed to initialize data file from sample: " + StringUtil.getDetails(e));
+        }
     }
 
     private void initLogging(Config config) {
