@@ -156,6 +156,24 @@ CLI-Tacts keeps the same overall architecture as AddressBook Level 3 (UI → Log
 
 Feature behaviour (**add**, **delete**, **edit**, **find**, **mark**, **unmark**, **list**, **clear**, etc.) is specified in the [User Guide](UserGuide.md) and summarised under [Appendix: Requirements](#appendix-requirements) (user stories and use cases). **Undo/redo** and **versioned address book history** are not part of this product; each modifying command updates the current `Model` and `Storage` persists to JSON as usual.
 
+### Find command
+
+The `find` command is parsed by [`FindCommandParser`](https://github.com/AY2526S2-CS2103T-T13-2/tp/tree/master/src/main/java/seedu/address/logic/parser/FindCommandParser.java). It builds a [`NameAndTutorialGroupPredicate`](https://github.com/AY2526S2-CS2103T-T13-2/tp/tree/master/src/main/java/seedu/address/model/person/NameAndTutorialGroupPredicate.java) (and [`FindCommand`](https://github.com/AY2526S2-CS2103T-T13-2/tp/tree/master/src/main/java/seedu/address/logic/commands/FindCommand.java) updates the model’s filtered person list).
+
+**Name (`n/`)**
+
+* The parser collects **all** whitespace-separated tokens from every `n/` argument (multiple `n/` prefixes are merged the same way as multiple words in one `n/` value). Each token is one **keyword**.
+* In `NameAndTutorialGroupPredicate`, **every** keyword must match: for each keyword, [`StringUtil#containsWordPrefixIgnoreCase`](https://github.com/AY2526S2-CS2103T-T13-2/tp/tree/master/src/main/java/seedu/address/commons/util/StringUtil.java) must be true for the person’s full name (the full name is split on whitespace into words; each keyword must be a non-empty prefix at the start of **at least one** word, case-insensitively). This is a logical **AND** across keywords. Mid-word substrings are not matched (e.g. `ohn` does not match `John`).
+
+**Other filters**
+
+* `t/`: exact tutorial group string (case-insensitive for the value).
+* `e/` and `th/`: one or more prefix tokens each; [`StringUtil#startsWithIgnoreCase`](https://github.com/AY2526S2-CS2103T-T13-2/tp/tree/master/src/main/java/seedu/address/commons/util/StringUtil.java) on email and optional Telegram handle respectively.
+
+**Combining filters**
+
+* When `n/`, `t/`, `e/`, and/or `th/` are all present, a person must satisfy **every** non-empty category (logical AND across categories).
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**

@@ -48,6 +48,11 @@ public class FindCommandParser implements Parser<FindCommand> {
                 nameKeywords, tutorialGroups, emailPrefixes, teleHandlePrefixes));
     }
 
+    /**
+     * Parses name search terms: each {@code n/} value may contain several words separated by spaces.
+     * Each word is a separate prefix; a person matches only if every prefix matches some word in their full name
+     * (see {@link NameAndTutorialGroupPredicate}).
+     */
     private List<String> parseNameKeywords(List<String> rawNameValues) throws ParseException {
         List<String> keywords = new ArrayList<>();
         for (String rawValue : rawNameValues) {

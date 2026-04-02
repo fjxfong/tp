@@ -143,7 +143,7 @@ Allows a TA to **filter the student list** to find specific individuals based on
 
 Formats:
 
-* `find n/NAME_KEYWORD`
+* `find n/NAME_KEYWORD [MORE_KEYWORDS]...`
 * `find t/TUTORIAL_GROUP`
 * `find e/EMAIL`
 * `find th/TELE_HANDLE`
@@ -153,9 +153,8 @@ At least one of `n/`, `t/`, `e/`, or `th/` must be present.
 
 #### Name (`n/`) filter
 
-* **Input restrictions**: same character and case-sensitivity rules as `NAME` in `add`.
-* **Prefix matching**: each word you provide after `n/` is treated as a **prefix**. A student matches if their name contains a word that starts with that prefix (case-insensitive). For example, `find n/j` matches students with a name word starting with `j` (e.g. **John Doe**, **Mary Jane**).
-* **Multiple words**: if you enter more than one word after `n/` (separated by spaces), **every prefix must match** somewhere in the student's name (logical AND). For example, `find n/John Do` matches **John Doe** but not **John Ong**.
+* **Words after `n/`**: you can type **one or more words** separated by spaces. Each word is a **prefix** checked against the student’s full name (first name, last name, etc.); **every** word you type must match **some** name part. Letter case does not matter.
+* **With tutorial group**: use `t/` in the same command when you also want to filter by group (e.g. `find n/John t/T01`).
 
 If an invalid name keyword is supplied, CLI-Tacts shows an error similar to:
 
@@ -204,15 +203,14 @@ Example after applying `find th/@ro`:
 * If no students match, the list becomes empty and the status shows `0 persons listed!`.
 
 Examples:
-* `find n/j` — finds students with a name word starting with `j`.
-* `find n/John` — finds students with a name word starting with `John`.
-* `find n/John Do` — finds students whose name contains a word starting with `John` and a word starting with `Do`.
+* `find n/j` — finds students whose name has a part starting with `j`.
+* `find n/John` — finds students whose name has a part starting with `John`.
+* `find n/John Do` — finds students whose name has a part starting with `John` **and** a part starting with `Do`.
 * `find t/T01` — finds all students from tutorial group `T01`.
 * `find e/alice@u.nus.edu` — finds the student with that email (if present).
 * `find th/@benson_meier` — finds the student with that Telegram handle (if present).
-* `find n/Tan` — finds all students with “Tan” in their name (surname or given name).
-* `find n/john t/T01` — finds all students with “John” in their name **and** from tutorial group `T01`.
-* `find n/alice bob` — same as keywords “alice” or “bob” in the name (see command format note: multiple words can be supplied).
+* `find n/Tan` — finds students whose name has a part starting with `Tan`.
+* `find n/john t/T01` — finds students whose name matches `john` **and** who are in tutorial group `T01`.
 
 ### Deleting a person : `delete`
 
@@ -412,7 +410,7 @@ Action | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [i/STUDENT_ID] [e/EMAIL] [p/PHONE_NUMBER] [th/TELE_HANDLE] [t/TUTORIAL_GROUP]`<br> e.g.,`edit 2 n/James Lee t/T03`
 **Export** | `export`
-**Find** | `find [n/NAME_KEYWORD] [t/TUTORIAL_GROUP] [e/EMAIL] [th/TELE_HANDLE]`<br> e.g., `find n/James t/T01 e/james@u.nus.edu`
+**Find** | `find [n/NAME_KEYWORD [MORE_KEYWORDS]...] [t/TUTORIAL_GROUP] [e/EMAIL] [th/TELE_HANDLE]`<br> e.g., `find n/James t/T01 e/james@u.nus.edu`
 **List** | `list`
 **Mark** | `mark INDEX w/WEEK`<br> `mark INDEX1 INDEX2 ... w/WEEK`<br> `mark t/TUTORIAL_GROUP w/WEEK`<br> e.g., `mark 1 w/2` or `mark 1 2 3 w/5` or `mark t/T02 w/2`
 **Unmark** | `unmark INDEX w/WEEK`<br> e.g., `unmark 1 w/2` or `unmark t/T01 w/2`

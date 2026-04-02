@@ -73,6 +73,20 @@ public class NameAndTutorialGroupPredicateTest {
     }
 
     @Test
+    public void test_multipleNameKeywordsAndTutorialGroup_allMustMatch() {
+        Person person = new PersonBuilder().withName("Alice Pauline").withTutorialGroup("T01").build();
+        NameAndTutorialGroupPredicate match =
+                new NameAndTutorialGroupPredicate(Arrays.asList("Alice", "Pau"), List.of(new TutorialGroup("T01")),
+                        List.of(), List.of());
+        assertTrue(match.test(person));
+
+        NameAndTutorialGroupPredicate nameFails =
+                new NameAndTutorialGroupPredicate(Arrays.asList("Alice", "xyz"), List.of(new TutorialGroup("T01")),
+                        List.of(), List.of());
+        assertFalse(nameFails.test(person));
+    }
+
+    @Test
     public void test_email_matchesEmail() {
         Person person = new PersonBuilder().withName("Alice Pauline").withEmail("alice@u.nus.edu")
                 .withTutorialGroup("T01").build();

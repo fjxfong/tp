@@ -91,6 +91,39 @@ public class FindCommandTest {
     }
 
     @Test
+    public void execute_nameKeywordsAndTutorialGroup_bothApply() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        NameAndTutorialGroupPredicate predicate = new NameAndTutorialGroupPredicate(
+                Arrays.asList("Alice", "Pau"), List.of(new TutorialGroup("T01")), List.of(), List.of());
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.singletonList(ALICE), model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_nameKeywordsAndTutorialGroup_noMatchWhenWrongGroup() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        NameAndTutorialGroupPredicate predicate = new NameAndTutorialGroupPredicate(
+                List.of("Alice"), List.of(new TutorialGroup("T02")), List.of(), List.of());
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_multipleNameKeywords_excludesWhenNotAllMatch() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        NameAndTutorialGroupPredicate predicate = new NameAndTutorialGroupPredicate(
+                Arrays.asList("Daniel", "Ong"), List.of(), List.of(), List.of());
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+    }
+
+    @Test
     public void toStringMethod() {
         NameAndTutorialGroupPredicate predicate =
                 new NameAndTutorialGroupPredicate(Arrays.asList("keyword"), List.of(), List.of(), List.of());
@@ -127,4 +160,5 @@ public class FindCommandTest {
     private List<String> prepareNameKeywords(String userInput) {
         return Arrays.asList(userInput.split("\\s+"));
     }
+
 }
