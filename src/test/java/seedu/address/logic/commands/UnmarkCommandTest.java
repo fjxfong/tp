@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -57,6 +58,25 @@ public class UnmarkCommandTest {
         UnmarkCommand unmarkCommand = new UnmarkCommand(outOfBoundIndex, 1);
 
         assertCommandFailure(unmarkCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_invalidWeekIndex_throwsCommandException() {
+        UnmarkCommand zeroWeekCommand = new UnmarkCommand(INDEX_FIRST_PERSON, 0);
+        assertCommandFailure(zeroWeekCommand, model, UnmarkCommand.MESSAGE_INVALID_WEEK);
+
+        UnmarkCommand aboveMaxWeekCommand = new UnmarkCommand(INDEX_FIRST_PERSON, Attendance.MAX_WEEKS + 1);
+        assertCommandFailure(aboveMaxWeekCommand, model, UnmarkCommand.MESSAGE_INVALID_WEEK);
+    }
+
+    @Test
+    public void execute_invalidWeekGroup_throwsCommandException() {
+        TutorialGroup tutorialGroup = new TutorialGroup("T01");
+        UnmarkCommand zeroWeekCommand = new UnmarkCommand(tutorialGroup, 0);
+        assertCommandFailure(zeroWeekCommand, model, UnmarkCommand.MESSAGE_INVALID_WEEK);
+
+        UnmarkCommand aboveMaxWeekCommand = new UnmarkCommand(tutorialGroup, Attendance.MAX_WEEKS + 1);
+        assertCommandFailure(aboveMaxWeekCommand, model, UnmarkCommand.MESSAGE_INVALID_WEEK);
     }
 
     @Test
@@ -152,6 +172,12 @@ public class UnmarkCommandTest {
         assertFalse(unmarkFirstCommand.equals(unmarkSecondCommand));
         assertFalse(unmarkFirstCommand.equals(unmarkFirstCommandWeek2));
         assertFalse(unmarkFirstCommand.equals(unmarkGroupCommand));
+    }
+
+    @Test
+    public void constructor_nullTarget_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new UnmarkCommand((Index) null, 1));
+        assertThrows(NullPointerException.class, () -> new UnmarkCommand((TutorialGroup) null, 1));
     }
 
     private void markGroupInModel(Model targetModel, TutorialGroup tutorialGroup, int week) {
