@@ -122,6 +122,15 @@ public class EditCommandTest {
     }
 
     @Test
+    public void execute_duplicatePersonDifferentCaseStudentId_failure() {
+        // ALICE (index 1) has A0123456A; edit BENSON to a0123456a → same student id after normalisation
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withStudentId("a0123456a").build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
+    @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();

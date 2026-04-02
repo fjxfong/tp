@@ -42,11 +42,12 @@ public class StudentIdTest {
         assertFalse(StudentId.isValidStudentId("AABCDEFGX")); // letters instead of digits in middle
         assertFalse(StudentId.isValidStudentId("A0123456XY")); // 10 chars, too long
 
-        // valid: A + 7 digits + 1 letter
+        // valid: A + 7 digits + 1 letter (any letter casing before normalisation)
         assertTrue(StudentId.isValidStudentId("A0123456X"));
         assertTrue(StudentId.isValidStudentId("A0000000A"));
         assertTrue(StudentId.isValidStudentId("A9999999Z"));
-        assertTrue(StudentId.isValidStudentId("A0123456a")); // lowercase ending letter
+        assertTrue(StudentId.isValidStudentId("A0123456a")); // lowercase trailing letter
+        assertTrue(StudentId.isValidStudentId("a0123456x")); // lowercase leading A and trailing letter
     }
 
     @Test
@@ -61,6 +62,7 @@ public class StudentIdTest {
 
         // same values -> returns true
         assertTrue(studentId.equals(new StudentId("A0123456X")));
+        assertTrue(studentId.equals(new StudentId("a0123456x")));
 
         // same object -> returns true
         assertTrue(studentId.equals(studentId));

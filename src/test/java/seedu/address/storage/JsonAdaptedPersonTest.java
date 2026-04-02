@@ -143,6 +143,14 @@ public class JsonAdaptedPersonTest {
     }
 
     @Test
+    public void toModelType_mixedCaseStudentId_normalizesToUppercase() throws Exception {
+        String mixedCaseId = BENSON.getStudentId().value.toLowerCase();
+        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, mixedCaseId, VALID_EMAIL, VALID_PHONE,
+                VALID_TELE_HANDLE, VALID_TUTORIAL_GROUP, VALID_ATTENDANCE);
+        assertEquals(BENSON.getStudentId().value, person.toModelType().getStudentId().value);
+    }
+
+    @Test
     public void toModelType_invalidTutorialGroup_throwsIllegalValueException() {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_STUDENT_ID, VALID_EMAIL, VALID_PHONE, VALID_TELE_HANDLE,

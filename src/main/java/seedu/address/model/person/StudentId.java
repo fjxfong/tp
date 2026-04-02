@@ -6,40 +6,51 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents a Person's student ID in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidStudentId(String)}.
- * Format: Exactly 9 alphanumeric characters. Case-insensitive.
+ * Input may use any letter casing; the stored {@link #value} is always uppercase (canonical form).
  */
 public class StudentId {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Invalid Student ID! Student ID should start with 'A', followed by 7 digits, and end with a letter.";
+            "Invalid Student ID! Use 'A', 7 digits, and one letter (e.g. A0123456X). "
+            + "Letters are case-insensitive; stored in uppercase.";
 
-    // Starts with 'A', followed by 7 digits, ends with a letter
-    public static final String VALIDATION_REGEX = "^A\\d{7}[A-Za-z]$";
+    /**
+     * Canonical pattern after {@link #normalizeCandidate(String)}: A, seven digits, one letter A–Z.
+     */
+    public static final String VALIDATION_REGEX = "^A\\d{7}[A-Z]$";
 
     public final String value;
 
     /**
      * Constructs a {@code StudentId}.
-     * Leading/trailing spaces are trimmed. Multiple internal spaces are collapsed to one.
-     * Value is normalized to uppercase.
+     * Leading/trailing spaces are trimmed, internal spaces removed, letters uppercased.
      *
-     * @param studentId A valid student ID.
+     * @param studentId A valid student ID in any letter casing.
      */
     public StudentId(String studentId) {
         requireNonNull(studentId);
-        String normalized = studentId.trim().replaceAll("\\s+", " ").replace(" ", "").toUpperCase();
-        checkArgument(isValidStudentId(normalized), MESSAGE_CONSTRAINTS);
+        String normalized = normalizeCandidate(studentId);
+        checkArgument(isValidStudentId(studentId), MESSAGE_CONSTRAINTS);
         value = normalized;
     }
 
     /**
-     * Returns true if a given string is a valid student ID.
+     * Returns the canonical form used for validation and storage (trim, strip spaces, uppercase).
+     * Does not check validity of the result.
+     */
+    private static String normalizeCandidate(String raw) {
+        return raw.trim().replaceAll("\\s+", " ").replace(" ", "").toUpperCase();
+    }
+
+    /**
+     * Returns true if {@code test} is non-null and normalizes to a valid student ID.
      */
     public static boolean isValidStudentId(String test) {
         if (test == null) {
             return false;
         }
-        return test.matches(VALIDATION_REGEX);
+        String normalized = normalizeCandidate(test);
+        return !normalized.isEmpty() && normalized.matches(VALIDATION_REGEX);
     }
 
     @Override

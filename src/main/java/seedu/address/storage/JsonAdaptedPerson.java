@@ -85,10 +85,12 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     StudentId.class.getSimpleName()));
         }
-        if (!StudentId.isValidStudentId(studentId)) {
+        final StudentId modelStudentId;
+        try {
+            modelStudentId = new StudentId(studentId);
+        } catch (IllegalArgumentException e) {
             throw new IllegalValueException(StudentId.MESSAGE_CONSTRAINTS);
         }
-        final StudentId modelStudentId = new StudentId(studentId);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));

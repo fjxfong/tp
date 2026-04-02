@@ -11,6 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.StudentId;
 import seedu.address.model.person.TeleHandle;
 import seedu.address.model.person.TutorialGroup;
 
@@ -26,6 +27,7 @@ public class ParserUtilTest {
     private static final String VALID_TELE_HANDLE = "@rachel_walker";
     private static final String VALID_EMAIL = "rachel@u.nus.edu";
     private static final String VALID_TUTORIAL_GROUP = "T01";
+    private static final String VALID_STUDENT_ID = "A0123456X";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -139,6 +141,29 @@ public class ParserUtilTest {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         Email expectedEmail = new Email(VALID_EMAIL);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    }
+
+    @Test
+    public void parseStudentId_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseStudentId(null));
+    }
+
+    @Test
+    public void parseStudentId_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, StudentId.MESSAGE_CONSTRAINTS, () -> ParserUtil.parseStudentId("invalid"));
+    }
+
+    @Test
+    public void parseStudentId_validValue_returnsUppercaseStudentId() throws Exception {
+        StudentId expected = new StudentId(VALID_STUDENT_ID);
+        assertEquals(expected, ParserUtil.parseStudentId(VALID_STUDENT_ID));
+    }
+
+    @Test
+    public void parseStudentId_mixedCase_normalizesToUppercase() throws Exception {
+        StudentId expected = new StudentId("A0123456X");
+        assertEquals(expected, ParserUtil.parseStudentId("a0123456x"));
+        assertEquals(expected, ParserUtil.parseStudentId("  a0123456x  "));
     }
 
     @Test

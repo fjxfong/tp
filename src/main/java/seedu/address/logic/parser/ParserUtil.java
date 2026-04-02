@@ -79,17 +79,17 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String studentId} into a {@code StudentId}.
-     * Leading and trailing whitespaces will be trimmed. Value is normalized to uppercase.
+     * Leading and trailing whitespaces are trimmed; letters may be any case (stored uppercase).
      *
      * @throws ParseException if the given {@code studentId} is invalid.
      */
     public static StudentId parseStudentId(String studentId) throws ParseException {
         requireNonNull(studentId);
-        String trimmedStudentId = studentId.trim();
-        if (!StudentId.isValidStudentId(trimmedStudentId)) {
+        try {
+            return new StudentId(studentId.trim());
+        } catch (IllegalArgumentException e) {
             throw new ParseException(StudentId.MESSAGE_CONSTRAINTS);
         }
-        return new StudentId(trimmedStudentId);
     }
 
     /**
