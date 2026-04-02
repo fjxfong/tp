@@ -7,8 +7,8 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches all of the name keywords given (each as a word prefix,
- * case-insensitive) and/or the {@code TutorialGroup} matches any of the tutorial groups given.
+ * Tests that a {@code Person}'s {@code Name} matches all given name prefixes (each as a word-prefix,
+ * case-insensitive), and/or {@code TutorialGroup}, email, or Telegram handle match the filters.
  */
 public class NameAndTutorialGroupPredicate implements Predicate<Person> {
     private final List<String> nameKeywords;
@@ -17,10 +17,11 @@ public class NameAndTutorialGroupPredicate implements Predicate<Person> {
     private final List<String> teleHandlePrefixes;
 
     /**
-     * Constructs a predicate that matches persons by name keywords and/or tutorial groups.
+     * Constructs a predicate that matches persons by name keywords and/or other filters.
      *
-     * @param nameKeywords   Name keywords to match; every keyword must match (case-insensitive, word-prefix match).
-     * @param tutorialGroups Tutorial groups to match (exact match).
+     * @param nameKeywords   Name prefixes; each must match some word in the full name (case-insensitive prefix).
+     *                       Empty list means no name filter.
+     * @param tutorialGroups Tutorial groups to match (any of).
      * @param emailPrefixes  Email prefixes to match (case-insensitive prefix match).
      * @param teleHandlePrefixes Telegram handle prefixes to match (case-insensitive prefix match).
      */

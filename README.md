@@ -73,12 +73,13 @@ Example: `delete 2` — deletes the 2nd student in the **currently displayed** l
 find [n/<NAME_KEYWORD> [MORE_KEYWORDS]...] [t/<TUTORIAL_GROUP>]...
 ```
 
-At least one of `n/` or `t/` must be present. Name matching is case-insensitive and supports several keywords (any match). Multiple `t/` values are allowed as in the full user guide.
+At least one of `n/` or `t/` must be present. After `n/`, you can type **one or more words** (separated by spaces); each word matches the **start** of some part of the student’s name, and **all** words must match. Letter case is ignored. Add `t/` in the same command to filter by tutorial group. Multiple `t/` values are allowed as in the full user guide.
 
 Examples:
 - `find n/John`
+- `find n/John Do`
 - `find t/T01`
-- `find n/alice bob t/T01`
+- `find n/john t/T01`
 
 ---
 

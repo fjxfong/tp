@@ -8,17 +8,17 @@ import seedu.address.model.Model;
 import seedu.address.model.person.NameAndTutorialGroupPredicate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords,
- * and/or whose tutorial group, email, or telegram handle matches specified filters.
- * Keyword matching for names is case insensitive.
+ * Finds and lists all persons in the address book whose name matches the given name prefixes,
+ * and/or whose tutorial group, email, or Telegram handle matches the specified filters.
+ * Name matching is case-insensitive word-prefix matching; multiple words after {@code n/} are combined with AND.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-insensitive) and/or match tutorial group, email, or telegram handle, and "
-            + "displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names match the given "
+            + "name prefixes (case-insensitive), and/or match tutorial group, email, or Telegram handle filters, "
+            + "and displays them as a list with index numbers.\n"
             + "Parameters: [n/NAME_KEYWORD [MORE_KEYWORDS]...] [t/TUTORIAL_GROUP]... [e/EMAIL]... [th/TELE_HANDLE]...\n"
             + "At least one of n/, t/, e/, or th/ must be present.\n"
             + "Example: " + COMMAND_WORD + " n/alice t/T01 e/alice@u.nus.edu th/@alice";

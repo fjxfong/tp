@@ -41,32 +41,48 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsFindCommand() {
-        // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
                 new FindCommand(new NameAndTutorialGroupPredicate(Arrays.asList("Alice", "Bob"),
                         List.of(), List.of(), List.of()));
         assertParseSuccess(parser, " n/Alice Bob", expectedFindCommand);
 
-        // multiple whitespaces between keywords
         assertParseSuccess(parser, " \n n/Alice \n \t Bob  \t", expectedFindCommand);
 
-        // tutorial group only
         FindCommand expectedFindCommandByTutorial =
                 new FindCommand(new NameAndTutorialGroupPredicate(List.of(),
                         List.of(new TutorialGroup("T01")), List.of(), List.of()));
         assertParseSuccess(parser, " t/T01 ", expectedFindCommandByTutorial);
 
-        // email only
         FindCommand expectedFindCommandByEmail =
                 new FindCommand(new NameAndTutorialGroupPredicate(List.of(), List.of(),
                         List.of("alice@u.nus.edu"), List.of()));
         assertParseSuccess(parser, " e/alice@u.nus.edu ", expectedFindCommandByEmail);
 
-        // telehandle only
         FindCommand expectedFindCommandByTele =
                 new FindCommand(new NameAndTutorialGroupPredicate(List.of(), List.of(),
                         List.of(), List.of("@alice")));
         assertParseSuccess(parser, " th/@alice ", expectedFindCommandByTele);
+    }
+
+    @Test
+    public void parse_nameAndTutorialGroup_combined() {
+        FindCommand expected = new FindCommand(new NameAndTutorialGroupPredicate(
+                List.of("Alice"), List.of(new TutorialGroup("T01")), List.of(), List.of()));
+        assertParseSuccess(parser, " n/Alice t/T01", expected);
+    }
+
+    @Test
+    public void parse_multipleNamePrefixes_mergedAsKeywords() {
+        FindCommand expected = new FindCommand(new NameAndTutorialGroupPredicate(
+                Arrays.asList("alice", "bob"), List.of(), List.of(), List.of()));
+        assertParseSuccess(parser, " n/alice n/bob", expected);
+    }
+
+    @Test
+    public void parse_multiWordNameAndTutorial_combined() {
+        FindCommand expected = new FindCommand(new NameAndTutorialGroupPredicate(
+                Arrays.asList("John", "Do"), List.of(new TutorialGroup("T01")), List.of(), List.of()));
+        assertParseSuccess(parser, " n/John Do t/T01", expected);
     }
 
 }
