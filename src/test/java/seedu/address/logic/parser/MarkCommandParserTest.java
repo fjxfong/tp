@@ -36,9 +36,15 @@ public class MarkCommandParserTest {
 
     @Test
     public void parse_validTutorialGroup_returnsMarkCommand() {
+        // t/ before w/
         assertParseSuccess(parser, PREFIX_TUTORIAL_GROUP + "T01 " + PREFIX_WEEK + "2",
                 new MarkCommand(new TutorialGroup("T01"), 2));
         assertParseSuccess(parser, PREFIX_TUTORIAL_GROUP + "T02 " + PREFIX_WEEK + "1",
+                new MarkCommand(new TutorialGroup("T02"), 1));
+        // w/ before t/ (flexible ordering)
+        assertParseSuccess(parser, PREFIX_WEEK + "2 " + PREFIX_TUTORIAL_GROUP + "T01",
+                new MarkCommand(new TutorialGroup("T01"), 2));
+        assertParseSuccess(parser, PREFIX_WEEK + "1 " + PREFIX_TUTORIAL_GROUP + "T02",
                 new MarkCommand(new TutorialGroup("T02"), 1));
     }
 
