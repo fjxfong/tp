@@ -4,7 +4,7 @@ title: User Guide
 ---
 
 CLI-Tacts is a lightweight application to manage your CS2040S students! It is optimised for **Command Line Interface 
-usage (CLI)**, while having the **benefits of a Graphical User Interface (GUI)**. The best of both worlds, quickness of a CLI and visualisation of a GUI! For fast typers, CLI-Tacts helps you optimise your workflow better than traditional GUI-only grading portals.
+usage (CLI)**, while having the benefits of a **Graphical User Interface (GUI)**. The best of both worlds, quickness of a CLI and visualisation of a GUI! For fast typers, CLI-Tacts helps you optimise your workflow better than traditional GUI-only grading portals.
 
 The primary users are **CS2040S Teaching Assistants** who:
 
@@ -30,7 +30,7 @@ The primary users are **CS2040S Teaching Assistants** who:
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window contaning the link to this user guide.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -64,8 +64,10 @@ The primary users are **CS2040S Teaching Assistants** who:
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   Currently, CLI-Tacts uses a **single tutorial group** per student, so you will not see repeated `t/` prefixes.
 
-* Parameters can be in any order for `add`, `edit` and `find` commands.<br>
+* Parameters can be in any order for `add`, `edit` , `mark` and `find` commands.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+
+* `edit`, `delete` and `unmark` require `INDEX`; `mark` requires one or more indices.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit`, `export` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -92,18 +94,18 @@ Format:
 
 Where:
 
-- `NAME` should only contain alphanumeric characters, spaces, hyphens (`-`), commas (`,`), and apostrophes (`'`)
-- `STUDENT_ID` must start with an `a` or `A`, followed by 7 digits and end with 1 letter. (e.g. `A0123456X`).
-- `EMAIL` must be a valid NUS email ending with `@u.nus.edu` (e.g. `alice@u.nus.edu`)
-- `PHONE_NUMBER` must be exactly 8 digits
-- `TELE_HANDLE` (optional) must be a valid Telegram handle that starts with `@` and has 5 to 32 characters.
-- `TUTORIAL_GROUP` follows a strict format that starts with `T` followed by exactly 2 digits (e.g. `T01`, `T12`)
-- `TUTORIAL_GROUP` is case-sensitive (`T01` is valid, `t01` is invalid)
-
-Notes for `add` arguments:
-
-- `EMAIL` matching/validation is case-insensitive for the local-part and domain (same behavior as `find e/`)
-- `TELE_HANDLE` matching/validation is case-insensitive and handles are stored in lowercase (same behavior as `find th/`)
+- `NAME` should only contain alphanumeric characters, spaces, hyphens (`-`), commas (`,`), and apostrophes (`'`). The first character must be alphanumeric.
+- `STUDENT_ID` must start with `A` (case-insensitive), followed by 7 digits and 1 letter (e.g. `A0123456X`). Stored in uppercase.
+- `EMAIL` must follow NUS email format with constraints:
+  - Must be of the format `local-part@u.nus.edu` (domain is strictly `u.nus.edu`)
+  - The local-part should only contain alphanumeric characters and special characters: `+`, `_`, `.`, `-`
+  - Each special character must be surrounded by alphanumeric characters (no consecutive special characters, cannot start or end with a special character)
+  - Examples: 
+    - Valid: `john.doe@u.nus.edu`, `alice+sem1@u.nus.edu`
+    - Invalid: `john..doe@u.nus.edu`, `.john@u.nus.edu`, `alice@gmail.com`
+- `PHONE_NUMBER` must be exactly 8 digits (e.g. `98765432`)
+- `TELE_HANDLE` (optional) must start with `@`, 5–32 characters (letters, numbers, underscores). Case-insensitive, stored in lowercase.
+- `TUTORIAL_GROUP` must be `T` followed by exactly 2 digits, case-sensitive (e.g. `T01` ✓, `t01` ✗)
 
 Examples:
 
@@ -111,6 +113,45 @@ Examples:
 * `add n/Bob Chan i/A0765432Y e/bobchan@u.nus.edu p/99998888 th/@bobchan t/T02`
 
 ![add command](images/addCommand.png)
+
+If any field value is invalid, CLI-Tacts shows the corresponding constraint message. Examples:
+
+If any non-optional field (`n/`, `i/`, `e/`, `p/`, `t/`) is missing, CLI-Tacts shows the usage message:
+
+> Invalid command format!
+> add: Adds a person to the address book. Parameters: n/NAME i/STUDENT_ID e/EMAIL p/PHONE [th/TELE_HANDLE] t/TUTORIAL_GROUP
+> Example: add n/John Doe i/A0123456X e/johnd@u.nus.edu p/98765432 th/@john_doe t/T01
+
+If an invalid name is supplied:
+
+> Names should only contain alphanumeric characters, spaces, hyphens, commas, and apostrophes. The first character must be alphanumeric.
+
+If an invalid email is supplied:
+
+> Emails should be of the format local-part@u.nus.edu and adhere to the following constraints:
+> 1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-).
+> 2. Each special character must be surrounded by alphanumeric characters (i.e. the local-part cannot start or end with a special character, and cannot contain consecutive special characters).
+> 3. The domain must be exactly u.nus.edu.
+
+If an invalid student ID is supplied:
+
+> Invalid Student ID! Use 'A', 7 digits, and one letter (e.g. A0123456X). Letters are case-insensitive; stored in uppercase.
+
+If an invalid phone number is supplied:
+
+> Phone numbers should only contain numbers, and it should be exactly 8 digits long
+
+If an invalid Telegram handle is supplied:
+
+> Telegram handle should start with '@' and be 5 to 32 characters long (letters, numbers, underscores).
+
+If an invalid tutorial group is supplied:
+
+> Tutorial group should start with 'T' followed by exactly 2 digits (e.g. T01, T12)
+
+If a student with the same student ID already exists:
+
+> This ID already exists in the address book
 
 ### Listing all persons : `list`
 
@@ -137,6 +178,23 @@ Examples:
 *  `edit 2 t/T03` Moves the 2nd student to tutorial group `T03`.
 
 ![edit command](images/editCommand.png)
+
+If the index is missing or invalid, CLI-Tacts shows the usage message:
+
+> Invalid command format!
+> edit: Edits the details of the person identified by the index number used in the displayed person list. Existing values will be overwritten by the input values.
+> Parameters: INDEX (must be a positive integer) [n/NAME] [i/STUDENT_ID] [e/EMAIL] [p/PHONE] [th/TELE_HANDLE] [t/TUTORIAL_GROUP]
+> Example: edit 1 n/John Doe i/A0123456X e/johndoe@u.nus.edu p/91234567 th/@john_doe
+
+If no field is provided, CLI-Tacts shows an error similar to:
+
+> At least one field to edit must be provided.
+
+If the edited values result in a duplicate student ID, CLI-Tacts shows an error similar to:
+
+> This ID already exists in the address book.
+
+If any field value is invalid, CLI-Tacts shows the corresponding constraint message (same as in `add`).
 
 ### Locating students by name, tutorial group, email, or telegram handle: `find`
 
@@ -227,6 +285,19 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find n/Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+![delete command](images/delete_success.png)
+
+If the index is missing or invalid format, CLI-Tacts shows the usage message:
+
+> Invalid command format!
+> delete: Deletes the person identified by the index number used in the displayed person list.
+> Parameters: INDEX (must be a positive integer)
+> Example: delete 1
+
+If the index is out of bounds, CLI-Tacts shows an error similar to:
+
+> The person index provided is invalid
+
 ### Marking attendance : `mark`
 
 CLI-Tacts supports three ways to mark attendance for a given **week** (positive integer, typically 1–13):
@@ -240,6 +311,8 @@ Format: `mark INDEX w/WEEK`
 
 After a successful mark, the list filter resets to show everyone again.
 
+![mark one](images/mark_one.png)
+
 #### Mark multiple students (by indices)
 
 Format: `mark INDEX1 INDEX2 ... w/WEEK`
@@ -249,6 +322,8 @@ Format: `mark INDEX1 INDEX2 ... w/WEEK`
 * Duplicate indices are counted only once (the duplicate is treated as already-recorded).
 * If **any** index is out of bounds, CLI-Tacts shows an error and no attendance is changed.
 
+![mark multiple](images/mark_multiple.png)
+
 #### Mark all students in a tutorial group
 
 Format: `mark t/TUTORIAL_GROUP w/WEEK`
@@ -257,6 +332,8 @@ Format: `mark t/TUTORIAL_GROUP w/WEEK`
 * Applies to **every student stored** with that tutorial group, **not** only those visible after a `find`.
 * Students **already** marked for that week are **skipped** (no error). The result message states how many were updated and how many were already recorded.
 * If **no** student has that tutorial group, CLI-Tacts shows an error.
+
+![mark tutorial](image.png)
 
 #### Notes
 
@@ -278,32 +355,91 @@ Example (whole group):
 
 * `mark t/T02 w/2` — marks all students in tutorial group `T02` for week 2.
 
-#### Attendance tracking
+If the command format is invalid or missing required parameters, CLI-Tacts shows the usage message:
 
-Attendance is stored **per week**. Each week can be marked at most once per student. The single-index form shows an error if you repeat the same week for the same student. The multiple-index and group forms skip already-marked students and report counts instead.
+> Invalid command format!
+> mark: Marks attendance for one or more persons by list index, or for everyone in a tutorial group.
+> Parameters (single): INDEX (positive integer) w/WEEK (positive integer)
+> Parameters (multiple): INDEX1 INDEX2 ... (positive integers) w/WEEK (positive integer)
+> Parameters (group): t/TUTORIAL_GROUP w/WEEK (positive integer)
+> Example (single): mark 1 w/2
+> Example (multiple): mark 1 2 3 w/2
+> Example (group): mark t/T02 w/2
+
+If an index is out of bounds, CLI-Tacts shows an error similar to:
+
+> The person index provided is invalid
+
+If a student has already been marked for the specified week:
+
+> X has already been marked as attended for week Y.
+
+If the week is not in the range 1–13:
+
+> Week must be a positive integer between 1 to 13.
+
+If a tutorial group has no students (for group mark):
+
+> No students found in tutorial group X.
 
 ### Unmarking attendance : `unmark`
 
-Unmarks a student's attendance for a specific week during a tutorial session.
+Unmarks a student's attendance for a specific week during a tutorial session. CLI-Tacts supports two ways to unmark attendance:
 
-Formats:
+#### Unmark one student (by index)
 
-* `unmark INDEX w/WEEK`
-* `unmark t/TUTORIAL_GROUP w/WEEK`
+Format: `unmark INDEX w/WEEK`
+
+* `INDEX` is the position in the **currently displayed** student list (`list`, `find`, …).
+* Use this when you want to unmark a specific student's attendance for a given week.
+
+![unmark](images/unmark.png)
+
+#### Unmark all students in a tutorial group
+
+Format: `unmark t/TUTORIAL_GROUP w/WEEK`
+
+* `TUTORIAL_GROUP` uses the same `T` + two digits rule as in `add` / `edit` / `find` (e.g. `T01`, `T12`).
+* Applies to **every student stored** with that tutorial group, **not** only those visible after a `find`.
+* Students not marked for that week are **skipped** (no error). The result message states how many were updated.
 
 Where:
-* `INDEX` refers to the index number shown in the displayed student list and **must be a positive integer** 1, 2, 3, â€¦â€‹
+* `INDEX` refers to the index number shown in the displayed student list and **must be a positive integer** 1, 2, 3, …​
 * `WEEK` is the week number to unmark attendance for and **must be a positive integer**
-* `TUTORIAL_GROUP` must be `T` followed by exactly 2 digits (e.g., `T01`, `T12`)
-
-#### Important notes:
-* If the student is already unmarked for the specified week, CLI-Tacts will show an error.
-* For group unmark, `t/` is required (e.g., `unmark t/T01 w/2`).
-* Group unmark errors if there are no students in the specified tutorial group, or if all students are already unmarked for that week.
 
 Examples:
-* `unmark 1 w/2` â€” unmarks the 1st student in the displayed list for week 2.
-* `unmark t/T01 w/4` â€” unmarks attendance for all marked students in tutorial group T01 for week 4.
+* `unmark 1 w/2` — unmarks the 1st student in the displayed list for week 2.
+* `unmark t/T01 w/4` — unmarks attendance for all marked students in tutorial group T01 for week 4.
+
+![unmark tutorial](images/unmark_tutorial.png)
+
+If the command format is invalid or missing required parameters, CLI-Tacts shows the usage message:
+
+> Invalid command format!
+> unmark: Unmarks the person identified by the index number used in the displayed person list as attended, or unmarks the entire tutorial group.
+> Parameters: INDEX (must be a positive integer) w/WEEK (must be a positive integer)
+> OR: t/TUTORIAL_GROUP w/WEEK (must be a positive integer)
+> Examples: unmark 1 w/2, unmark t/T01 w/2
+
+If an index is out of bounds, CLI-Tacts shows an error similar to:
+
+> The person index provided is invalid
+
+If a student has already been unmarked for the specified week:
+
+> This person has already been unmarked as attended for this week.
+
+If the week is not in the range 1–13:
+
+> Week must be a positive integer between 1 to 13.
+
+If a tutorial group has no students (for group unmark):
+
+> No persons found in tutorial group: X.
+
+If all students in the tutorial group are already unmarked for that week:
+
+> All persons in tutorial group X are already unmarked for week Y.
 
 ### Clearing all entries : `clear`
 
@@ -368,7 +504,6 @@ Student,StudentID,Email,Tutorial,Week1,Week2,...,Week13
 "Alice Pauline","A0123456A","alice@u.nus.edu","T01",1,0,0,0,0,0,0,0,0,0,0,0,0
 "Benson Meier","A0123456B","johnd@u.nus.edu","T02",0,0,0,0,0,0,0,0,0,0,0,0,0
 ```
-
 ### Saving the data
 
 CLI-Tacts data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -399,6 +534,7 @@ _Details coming soon ..._
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+3. **Index values exceeding Integer.MAX_VALUE** (2,147,483,647) will display the command format error instead of a specific index validation error.
 
 --------------------------------------------------------------------------------------------------------------------
 
