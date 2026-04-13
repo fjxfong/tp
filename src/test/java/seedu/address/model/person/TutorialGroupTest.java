@@ -17,9 +17,9 @@ public class TutorialGroupTest {
     @Test
     public void constructor_invalidTutorialGroup_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new TutorialGroup(""));
-        assertThrows(IllegalArgumentException.class, () -> new TutorialGroup("friend"));
-        assertThrows(IllegalArgumentException.class, () -> new TutorialGroup("T1"));
-        assertThrows(IllegalArgumentException.class, () -> new TutorialGroup("T123"));
+        assertThrows(IllegalArgumentException.class, () -> new TutorialGroup("ab"));
+        assertThrows(IllegalArgumentException.class, () -> new TutorialGroup("abcdef"));
+        assertThrows(IllegalArgumentException.class, () -> new TutorialGroup("a*b"));
     }
 
     @Test
@@ -29,19 +29,23 @@ public class TutorialGroupTest {
 
         // invalid tutorial groups
         assertFalse(TutorialGroup.isValidTutorialGroup(""));
-        assertFalse(TutorialGroup.isValidTutorialGroup("friend"));
-        assertFalse(TutorialGroup.isValidTutorialGroup("T1"));
-        assertFalse(TutorialGroup.isValidTutorialGroup("T123"));
-        assertFalse(TutorialGroup.isValidTutorialGroup("t01"));
-        assertFalse(TutorialGroup.isValidTutorialGroup("A01"));
-        assertFalse(TutorialGroup.isValidTutorialGroup("TAB"));
-        assertFalse(TutorialGroup.isValidTutorialGroup("#friend"));
+        assertFalse(TutorialGroup.isValidTutorialGroup("a"));
+        assertFalse(TutorialGroup.isValidTutorialGroup("ab"));
+        assertFalse(TutorialGroup.isValidTutorialGroup("abcdef"));
+        assertFalse(TutorialGroup.isValidTutorialGroup("T01234"));
+        assertFalse(TutorialGroup.isValidTutorialGroup("t-01"));
+        assertFalse(TutorialGroup.isValidTutorialGroup("#ab"));
+        assertFalse(TutorialGroup.isValidTutorialGroup("hubby*"));
 
-        // valid tutorial groups (T + exactly 2 digits)
+        // valid tutorial groups (3 to 5 alphanumeric)
         assertTrue(TutorialGroup.isValidTutorialGroup("T01"));
         assertTrue(TutorialGroup.isValidTutorialGroup("T12"));
-        assertTrue(TutorialGroup.isValidTutorialGroup("T00"));
-        assertTrue(TutorialGroup.isValidTutorialGroup("T99"));
+        assertTrue(TutorialGroup.isValidTutorialGroup("T123"));
+        assertTrue(TutorialGroup.isValidTutorialGroup("t01"));
+        assertTrue(TutorialGroup.isValidTutorialGroup("A01"));
+        assertTrue(TutorialGroup.isValidTutorialGroup("TAB"));
+        assertTrue(TutorialGroup.isValidTutorialGroup("Lab"));
+        assertTrue(TutorialGroup.isValidTutorialGroup("CS204"));
     }
 
     @Test

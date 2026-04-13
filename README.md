@@ -126,7 +126,7 @@ mark t/<TUTORIAL_GROUP> w/<WEEK>
 
 Example: `mark t/T02 w/2` — marks all students in `T02` for week 2. Already-marked students for that week are **skipped** (no error). If no student has that group, an error is shown.
 
-Tutorial groups use `T` plus two digits (e.g. `T01`, `T12`).
+Tutorial groups are 3–5 alphanumeric characters (e.g. `T01`, `CS204`).
 
 ---
 

@@ -385,7 +385,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to mark all students in a tutorial group for a specific week (e.g., `mark t\T01 w\3`).
-2. CLI-Tacts validates the tutorial group format (T + 2 digits).
+2. CLI-Tacts validates the tutorial group format (3–5 alphanumeric characters).
 3. CLI-Tacts checks that at least one student exists with that tutorial group in storage.
 4. CLI-Tacts marks each student in that tutorial group for the specified week; students already marked for that week are skipped without error.
 5. CLI-Tacts confirms the action and reports: how many students were newly marked and how many were already recorded for that week.
@@ -394,7 +394,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. The tutorial group format is invalid (e.g., `t\T1` or `t\t01`).
+* 2a. The tutorial group format is invalid (e.g., `t\T1` or `t\T01234` or `t\T-01`).
     * 2a1. CLI-Tacts shows an error message describing the valid format.
 
       Use case ends.
@@ -630,7 +630,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * Student id: The unique identifier for a student (e.g., A0123456X) used as the primary key for identifying a student in the application.
 
-* Tutorial group: A label used to group students by tutorial or lab session (e.g., T12) for filtering and attendance marking/unmarking.
+* Tutorial group: A label used to group students by tutorial or lab session (3–5 alphanumeric characters; e.g., `T01`, `CS204`) for filtering and attendance marking/unmarking.
 
 * Typical usage: Normal operation during a semester for a teaching assistant managing up to 200 students across multiple tutorial groups.
 

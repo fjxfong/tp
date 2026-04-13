@@ -106,7 +106,7 @@ Where:
 - `PHONE_NUMBER` must be digits only, **3 to 15 digits** inclusive (e.g. `98765432`, `123`).
   - As of **2026**, **3** is the shortest possible phone number length and **15** is the longest possible phone number length that CLI-Tacts accepts.
 - `TELE_HANDLE` (optional) must start with `@`, 5–32 characters (letters, numbers, underscores). Case-insensitive, stored in lowercase.
-- `TUTORIAL_GROUP` must be `T` followed by exactly 2 digits, case-sensitive (e.g. `T01` ✓, `t01` ✗)
+- `TUTORIAL_GROUP` must be **3 to 5 alphanumeric characters** (letters or digits only). Examples: `T01`, `t01`, `CS204` ✓; `ab` (too short), `T01234` (too long), `T-01` ✗
 
 Examples:
 
@@ -166,7 +166,7 @@ If an invalid Telegram handle is supplied:
 If an invalid tutorial group is supplied:
 
 <div style="border: 1px solid #d9d9d9; border-radius: 6px; padding: 8px 12px; margin: 8px 0;">
-<code>Tutorial group should start with 'T' followed by exactly 2 digits (e.g. T01, T12)</code>
+<code>Tutorial group should be 3 to 5 alphanumeric characters (letters or digits) inclusive.</code>
 </div>
 
 If a student with the same student ID already exists:
@@ -289,13 +289,13 @@ Example after applying `find n\Ale`:
 
 #### Tutorial group (`t\`) filter
 
-* **Input restrictions**: same format and case-sensitivity rules as `TUTORIAL_GROUP` in `add` / `edit`.
+* **Input restrictions**: same format as `TUTORIAL_GROUP` in `add` / `edit` (3–5 alphanumeric characters). Matching is **case-insensitive** when filtering.
 
 If an invalid tutorial group is supplied, CLI-Tacts shows an error similar to:
 
 <div style="border: 1px solid #bfbfbf; border-radius: 8px; padding: 10px 12px; margin: 8px 0 12px 0;">
 <div style="border: 1px solid #d9d9d9; border-radius: 6px; padding: 8px 12px; margin: 8px 0;">
-<code>Tutorial group should start with 'T' followed by exactly 2 digits (e.g. T01, T12).</code>
+<code>Tutorial group should be 3 to 5 alphanumeric characters (letters or digits) inclusive.</code>
 </div>
 </div>
 
@@ -421,7 +421,7 @@ Format: `mark INDEX1 INDEX2 ... w\WEEK`
 
 Format: `mark t\TUTORIAL_GROUP w\WEEK`
 
-* `TUTORIAL_GROUP` uses the same `T` + two digits rule as in `add` / `edit` / `find` (e.g. `T01`, `T12`).
+* `TUTORIAL_GROUP` uses the same 3–5 alphanumeric rule as in `add` / `edit` / `find` (e.g. `T01`, `Lab2`).
 * Applies to **every student stored** with that tutorial group, **not** only those visible after a `find`.
 * Students **already** marked for that week are **skipped** (no error). The result message states how many were updated and how many were already recorded.
 * If **no** student has that tutorial group, CLI-Tacts shows an error.
@@ -507,7 +507,7 @@ Format: `unmark INDEX w\WEEK`
 
 Format: `unmark t\TUTORIAL_GROUP w\WEEK`
 
-* `TUTORIAL_GROUP` uses the same `T` + two digits rule as in `add` / `edit` / `find` (e.g. `T01`, `T12`).
+* `TUTORIAL_GROUP` uses the same 3–5 alphanumeric rule as in `add` / `edit` / `find` (e.g. `T01`, `Lab2`).
 * Applies to **every student stored** with that tutorial group, **not** only those visible after a `find`.
 * Students not marked for that week are **skipped** (no error). The result message states how many were updated.
 

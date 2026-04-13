@@ -86,7 +86,7 @@ public class MarkCommandParserTest {
 
     @Test
     public void parse_invalidTutorialGroup_throwsParseException() {
-        assertParseFailure(parser, PREFIX_TUTORIAL_GROUP + "wrong " + PREFIX_WEEK + "1",
+        assertParseFailure(parser, PREFIX_TUTORIAL_GROUP + "T01234 " + PREFIX_WEEK + "1",
                 TutorialGroup.MESSAGE_CONSTRAINTS);
     }
 

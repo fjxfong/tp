@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class TutorialGroup {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Tutorial group should start with 'T' followed by exactly 2 digits (e.g. T01, T12).";
-    public static final String VALIDATION_REGEX = "^T\\d{2}$";
+            "Tutorial group should be 3 to 5 alphanumeric characters (letters or digits) inclusive.";
+    public static final String VALIDATION_REGEX = "^[A-Za-z0-9]{3,5}$";
 
     public final String value;
 
