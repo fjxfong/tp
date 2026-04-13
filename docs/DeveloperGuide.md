@@ -692,3 +692,11 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+**Team size:** 5
+
+1. **Allow clearing a student’s Telegram handle via `edit`:** Telegram is optional on `add`, but once a handle is saved there is still no supported way to remove it from the CLI. **Current behaviour (v1.6):** If the user supplies the prefix with **no value** after it (e.g. `edit 3 th\` or only spaces, after trimming), the app still feeds that argument through `TeleHandle` validation. The empty string is invalid, so the command **fails** and the status area shows: `Telegram handle should start with '@' followed by 5 to 32 characters (letters, numbers, underscores).` The student’s Telegram field is **unchanged** The only workarounds are to replace the handle with another valid one or to edit the JSON data file manually. **Planned change:** Treat a present `th\` prefix with a **trimmed-empty** value as an explicit instruction to **clear** the handle (store as absent / null, same as a student who never had one). Non-empty values will still use existing validation (e.g. `th\@` alone remains invalid). **Sample input (after fix):** `edit 3 th\` for a student who had `th\@alice_ta`. **Sample outcome:** Success message; Telegram hidden in the UI; save omits `teleHandle` in JSON. Update the User Guide with the new rule and example.
