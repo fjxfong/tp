@@ -120,11 +120,15 @@ public class MarkCommandParserTest {
     public void parse_invalidWeek_throwsParseException() {
         // zero week
         assertParseFailure(parser, "1 " + PREFIX_WEEK + "0",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+                MarkCommand.MESSAGE_INVALID_WEEK);
 
         // negative week
         assertParseFailure(parser, "1 " + PREFIX_WEEK + "-1",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+                MarkCommand.MESSAGE_INVALID_WEEK);
+
+        // above max week
+        assertParseFailure(parser, "1 " + PREFIX_WEEK + "14",
+                MarkCommand.MESSAGE_INVALID_WEEK);
 
         // non-numeric week
         assertParseFailure(parser, "1 " + PREFIX_WEEK + "abc",

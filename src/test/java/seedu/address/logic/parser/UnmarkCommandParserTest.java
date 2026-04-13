@@ -84,9 +84,11 @@ public class UnmarkCommandParserTest {
     @Test
     public void parse_invalidWeek_throwsParseException() {
         assertParseFailure(parser, "1 " + PREFIX_WEEK + "0",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
+                UnmarkCommand.MESSAGE_INVALID_WEEK);
         assertParseFailure(parser, "1 " + PREFIX_WEEK + "-1",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
+                UnmarkCommand.MESSAGE_INVALID_WEEK);
+        assertParseFailure(parser, "1 " + PREFIX_WEEK + "14",
+                UnmarkCommand.MESSAGE_INVALID_WEEK);
         assertParseFailure(parser, "1 " + PREFIX_WEEK + "abc",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
     }

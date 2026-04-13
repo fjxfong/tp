@@ -10,6 +10,7 @@ import java.util.Optional;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UnmarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Attendance;
 import seedu.address.model.person.TutorialGroup;
 
 /**
@@ -70,14 +71,15 @@ public class UnmarkCommandParser implements Parser<UnmarkCommand> {
     }
 
     private static int parseWeek(String weekStr) throws ParseException {
+        int week;
         try {
-            int week = Integer.parseInt(weekStr.trim());
-            if (week <= 0) {
-                throw new NumberFormatException();
-            }
-            return week;
+            week = Integer.parseInt(weekStr.trim());
         } catch (NumberFormatException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE), e);
         }
+        if (week < 1 || week > Attendance.MAX_WEEKS) {
+            throw new ParseException(UnmarkCommand.MESSAGE_INVALID_WEEK);
+        }
+        return week;
     }
 }
