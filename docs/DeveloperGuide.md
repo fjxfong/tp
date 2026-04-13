@@ -160,19 +160,19 @@ Feature behaviour (**add**, **delete**, **edit**, **find**, **mark**, **unmark**
 
 The `find` command is parsed by [`FindCommandParser`](https://github.com/AY2526S2-CS2103T-T13-2/tp/tree/master/src/main/java/seedu/address/logic/parser/FindCommandParser.java). It builds a [`NameAndTutorialGroupPredicate`](https://github.com/AY2526S2-CS2103T-T13-2/tp/tree/master/src/main/java/seedu/address/model/person/NameAndTutorialGroupPredicate.java) (and [`FindCommand`](https://github.com/AY2526S2-CS2103T-T13-2/tp/tree/master/src/main/java/seedu/address/logic/commands/FindCommand.java) updates the model’s filtered person list).
 
-**Name (`n/`)**
+**Name (`n\`)**
 
-* The parser collects **all** whitespace-separated tokens from every `n/` argument (multiple `n/` prefixes are merged the same way as multiple words in one `n/` value). Each token is one **keyword**.
+* The parser collects **all** whitespace-separated tokens from every `n\` argument (multiple `n\` prefixes are merged the same way as multiple words in one `n\` value). Each token is one **keyword**.
 * In `NameAndTutorialGroupPredicate`, **every** keyword must match: for each keyword, [`StringUtil#containsWordPrefixIgnoreCase`](https://github.com/AY2526S2-CS2103T-T13-2/tp/tree/master/src/main/java/seedu/address/commons/util/StringUtil.java) must be true for the person’s full name (the full name is split on whitespace into words; each keyword must be a non-empty prefix at the start of **at least one** word, case-insensitively). This is a logical **AND** across keywords. Mid-word substrings are not matched (e.g. `ohn` does not match `John`).
 
 **Other filters**
 
-* `t/`: exact tutorial group string (case-insensitive for the value).
-* `e/` and `th/`: one or more prefix tokens each; [`StringUtil#startsWithIgnoreCase`](https://github.com/AY2526S2-CS2103T-T13-2/tp/tree/master/src/main/java/seedu/address/commons/util/StringUtil.java) on email and optional Telegram handle respectively.
+* `t\`: exact tutorial group string (case-insensitive for the value).
+* `e\` and `th\`: one or more prefix tokens each; [`StringUtil#startsWithIgnoreCase`](https://github.com/AY2526S2-CS2103T-T13-2/tp/tree/master/src/main/java/seedu/address/commons/util/StringUtil.java) on email and optional Telegram handle respectively.
 
 **Combining filters**
 
-* When `n/`, `t/`, `e/`, and/or `th/` are all present, a person must satisfy **every** non-empty category (logical AND across categories).
+* When `n\`, `t\`, `e\`, and/or `th\` are all present, a person must satisfy **every** non-empty category (logical AND across categories).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -255,7 +255,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to add a student, providing name, student ID, email, phone, Telegram handle (optional), and tutorial group (e.g. `add n/John Doe i/A0123456X e/john@u.nus.edu p/98765432 th/@johndoe t/T01`).
+1. User requests to add a student, providing name, student ID, email, phone, Telegram handle (optional), and tutorial group (e.g. `add n\John Doe i\A0123456X e\john@u.nus.edu p\98765432 th\@johndoe t\T01`).
 2. CLI-Tacts validates all required fields are present and in correct format.
 3. CLI-Tacts checks that the student ID, email, and phone are not already in use.
 4. CLI-Tacts adds the student to the address book and saves the data locally.
@@ -265,7 +265,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. User omits any required field (`n/`, `i/`, `e/`, `p/`, `t/`).
+* 1a. User omits any required field (`n\`, `i\`, `e\`, `p\`, `t\`).
     * 1a1. CLI-Tacts shows the command format with an error message.
 
       Use case ends.
@@ -296,7 +296,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User requests to view students (e.g. `list` or `find`).
 2. CLI-Tacts shows the student list.
-3. User requests to edit a specific student by index, providing one or more fields to update (e.g., `edit 2 p/99272758 e/newemail@u.nus.edu`).
+3. User requests to edit a specific student by index, providing one or more fields to update (e.g., `edit 2 p\99272758 e\newemail@u.nus.edu`).
 4. CLI-Tacts validates the provided fields.
 5. CLI-Tacts checks that new student ID, email, and phone (if provided) are not already in use by other students.
 6. CLI-Tacts updates the student's details and saves.
@@ -346,7 +346,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User requests to view students (e.g. `list` or `find`).
 2. CLI-Tacts shows the filtered student list with indexes.
-3. User requests to mark one or more students using `mark INDEX w/WEEK` or `mark INDEX1 INDEX2 ... w/WEEK`.
+3. User requests to mark one or more students using `mark INDEX w\WEEK` or `mark INDEX1 INDEX2 ... w\WEEK`.
 4. CLI-Tacts updates the attendance record for the specified student(s).
 5. CLI-Tacts confirms the change and refreshes the list display.
 
@@ -368,7 +368,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-* 3c. User marks multiple students by indices with `mark INDEX1 INDEX2 ... w/WEEK`.
+* 3c. User marks multiple students by indices with `mark INDEX1 INDEX2 ... w\WEEK`.
     * 3c1. CLI-Tacts validates all provided indices are within bounds.
     * 3c2. CLI-Tacts updates each student in the list; already-marked students for that week are skipped.
     * 3c3. CLI-Tacts reports counts of updated vs already-recorded students.
@@ -384,7 +384,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to mark all students in a tutorial group for a specific week (e.g., `mark t/T01 w/3`).
+1. User requests to mark all students in a tutorial group for a specific week (e.g., `mark t\T01 w\3`).
 2. CLI-Tacts validates the tutorial group format (T + 2 digits).
 3. CLI-Tacts checks that at least one student exists with that tutorial group in storage.
 4. CLI-Tacts marks each student in that tutorial group for the specified week; students already marked for that week are skipped without error.
@@ -394,7 +394,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 2a. The tutorial group format is invalid (e.g., `t/T1` or `t/t01`).
+* 2a. The tutorial group format is invalid (e.g., `t\T1` or `t\t01`).
     * 2a1. CLI-Tacts shows an error message describing the valid format.
 
       Use case ends.
@@ -439,7 +439,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case resumes at step 2.
 
 3b. User wants to unmark the entire group (bulk action).
-   3b1. User enters a bulk command (e.g., `unmark t/T01 w/2`).
+   3b1. User enters a bulk command (e.g., `unmark t\T01 w\2`).
    3b2. CLI-Tacts updates every student in storage with that tutorial group who was marked for that week; already-unmarked students are skipped.
 
    Use case ends.
@@ -448,7 +448,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to find students using one or more filters (e.g., `find n/john`, `find t/T01`, `find e/alice@`, `find th/@bot`).
+1. User requests to find students using one or more filters (e.g., `find n\john`, `find t\T01`, `find e\alice@`, `find th\@bot`).
 2. CLI-Tacts parses the command and validates filter formats.
 3. CLI-Tacts updates the displayed list to show only students matching all specified filter criteria.
 4. CLI-Tacts displays the filtered list with student details and index numbers.
@@ -541,7 +541,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Usability**
 1.  The system must be fully operable using keyboard-only commands without requiring mouse interaction.
-2.  All commands must follow a consistent prefix format (e.g., `n/`, `i/`, `e/`, `t/`) to ensure predictable command usage.
+2.  All commands must follow a consistent prefix format (e.g., `n\`, `i\`, `e\`, `t\`) to ensure predictable command usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4.  When a command fails, the system must provide clear and informative error messages explaining the issue and the correct command format.
 
@@ -590,7 +590,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * Command: A text instruction typed by the user into the command box to perform an action (e.g., add, delete, find, mark, unmark).
 
-* Command prefix: A token that identifies the value of a field in a command (e.g., n/ for name, i/ for student id, e/ for email, t/ for tutorial group).
+* Command prefix: A token that identifies the value of a field in a command (e.g., n\ for name, i\ for student id, e\ for email, t\ for tutorial group).
 
 * Command result: The message returned by the system after executing a command, indicating success or failure.
 

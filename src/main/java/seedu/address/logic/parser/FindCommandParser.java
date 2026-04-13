@@ -49,7 +49,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     }
 
     /**
-     * Parses name search terms: each {@code n/} value may contain several words separated by spaces.
+     * Parses name search terms: each {@code n\} value may contain several words separated by spaces.
      * Each word is a separate prefix; a person matches only if every prefix matches some word in their full name
      * (see {@link NameAndTutorialGroupPredicate}).
      */

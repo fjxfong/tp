@@ -58,21 +58,21 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_mark() throws Exception {
         MarkCommand command = (MarkCommand) parser.parseCommand(
-                MarkCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " w/1");
+                MarkCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " w\\1");
         assertEquals(new MarkCommand(INDEX_FIRST_PERSON, 1), command);
     }
 
     @Test
     public void parseCommand_unmark() throws Exception {
         UnmarkCommand command = (UnmarkCommand) parser.parseCommand(
-                UnmarkCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " w/1");
+                UnmarkCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " w\\1");
         assertEquals(new UnmarkCommand(INDEX_FIRST_PERSON, 1), command);
     }
 
     @Test
     public void parseCommand_markTutorialGroup() throws Exception {
         MarkCommand command = (MarkCommand) parser.parseCommand(
-                MarkCommand.COMMAND_WORD + " t/T01 w/2");
+                MarkCommand.COMMAND_WORD + " t\\T01 w\\2");
         assertEquals(new MarkCommand(new TutorialGroup("T01"), 2), command);
     }
 
@@ -100,7 +100,7 @@ public class AddressBookParserTest {
     public void parseCommand_find() throws Exception {
         List<String> keywords = List.of("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " n/foo bar baz");
+                FindCommand.COMMAND_WORD + " n\\foo bar baz");
         assertEquals(new FindCommand(new NameAndTutorialGroupPredicate(keywords, List.of(), List.of(), List.of())),
                 command);
     }

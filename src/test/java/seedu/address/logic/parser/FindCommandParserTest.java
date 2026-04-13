@@ -29,13 +29,13 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_emptyPrefixValue_throwsParseException() {
-        assertParseFailure(parser, " n/ ",
+        assertParseFailure(parser, " n\\ ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidTutorialGroup_throwsParseException() {
-        assertParseFailure(parser, " t/T1 ", TutorialGroup.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " t\\T1 ", TutorialGroup.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -43,43 +43,43 @@ public class FindCommandParserTest {
         FindCommand expectedFindCommand =
                 new FindCommand(new NameAndTutorialGroupPredicate(List.of("Alice", "Bob"),
                         List.of(), List.of(), List.of()));
-        assertParseSuccess(parser, " n/Alice Bob", expectedFindCommand);
+        assertParseSuccess(parser, " n\\Alice Bob", expectedFindCommand);
 
         FindCommand expectedFindCommandByTutorial =
                 new FindCommand(new NameAndTutorialGroupPredicate(List.of(),
                         List.of(new TutorialGroup("T01")), List.of(), List.of()));
-        assertParseSuccess(parser, " t/T01 ", expectedFindCommandByTutorial);
+        assertParseSuccess(parser, " t\\T01 ", expectedFindCommandByTutorial);
 
         FindCommand expectedFindCommandByEmail =
                 new FindCommand(new NameAndTutorialGroupPredicate(List.of(), List.of(),
                         List.of("alice@u.nus.edu"), List.of()));
-        assertParseSuccess(parser, " e/alice@u.nus.edu ", expectedFindCommandByEmail);
+        assertParseSuccess(parser, " e\\alice@u.nus.edu ", expectedFindCommandByEmail);
 
         FindCommand expectedFindCommandByTele =
                 new FindCommand(new NameAndTutorialGroupPredicate(List.of(), List.of(),
                         List.of(), List.of("@alice")));
-        assertParseSuccess(parser, " th/@alice ", expectedFindCommandByTele);
+        assertParseSuccess(parser, " th\\@alice ", expectedFindCommandByTele);
     }
 
     @Test
     public void parse_nameAndTutorialGroup_combined() {
         FindCommand expected = new FindCommand(new NameAndTutorialGroupPredicate(
                 List.of("Alice"), List.of(new TutorialGroup("T01")), List.of(), List.of()));
-        assertParseSuccess(parser, " n/Alice t/T01", expected);
+        assertParseSuccess(parser, " n\\Alice t\\T01", expected);
     }
 
     @Test
     public void parse_multipleNamePrefixes_mergedAsKeywords() {
         FindCommand expected = new FindCommand(new NameAndTutorialGroupPredicate(
                 List.of("alice", "bob"), List.of(), List.of(), List.of()));
-        assertParseSuccess(parser, " n/alice n/bob", expected);
+        assertParseSuccess(parser, " n\\alice n\\bob", expected);
     }
 
     @Test
     public void parse_multiWordNameAndTutorial_combined() {
         FindCommand expected = new FindCommand(new NameAndTutorialGroupPredicate(
                 List.of("John", "Do"), List.of(new TutorialGroup("T01")), List.of(), List.of()));
-        assertParseSuccess(parser, " n/John Do t/T01", expected);
+        assertParseSuccess(parser, " n\\John Do t\\T01", expected);
     }
 
 }

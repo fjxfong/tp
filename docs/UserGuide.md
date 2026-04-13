@@ -35,9 +35,9 @@ The primary users are **CS2040S Teaching Assistants** who:
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe i/A0123456X e/johnd@u.nus.edu p/98765432 th/@johndoe t/T01` : Adds student `John Doe` to CLI-Tacts.
+   * `add n\John Doe i\A0123456X e\johnd@u.nus.edu p\98765432 th\@johndoe t\T01` : Adds student `John Doe` to CLI-Tacts.
 
-   * `mark 1 w/1` : Marks the first student's attendance for week 1.
+   * `mark 1 w\1` : Marks the first student's attendance for week 1.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -56,16 +56,16 @@ The primary users are **CS2040S Teaching Assistants** who:
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `add n\NAME`, `NAME` is a parameter which can be used as `add n\John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [th/TELE_HANDLE]` can be used as `n/John Doe th/@johndoe` or as `n/John Doe`.
+  e.g `n\NAME [th\TELE_HANDLE]` can be used as `n\John Doe th\@johndoe` or as `n\John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  Currently, CLI-Tacts uses a **single tutorial group** per student, so you will not see repeated `t/` prefixes.
+  Currently, CLI-Tacts uses a **single tutorial group** per student, so you will not see repeated `t\` prefixes.
 
 * Parameters can be in any order for `add`, `edit` , `mark`, `unmark` and `find` commands.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `n\NAME p\PHONE_NUMBER`, `p\PHONE_NUMBER n\NAME` is also acceptable.
 
 * `edit` and `delete` require `INDEX`; `mark` and `unmark` can be done by `INDEX` or by `TUTORIAL_GROUP`.
 
@@ -89,7 +89,7 @@ Adds a student to CLI-Tacts. Telegram handle is optional (useful for contacting 
 
 Format:
 
-`add n/NAME i/STUDENT_ID e/EMAIL p/PHONE_NUMBER [th/TELE_HANDLE] t/TUTORIAL_GROUP`
+`add n\NAME i\STUDENT_ID e\EMAIL p\PHONE_NUMBER [th\TELE_HANDLE] t\TUTORIAL_GROUP`
 
 Where:
 
@@ -109,8 +109,8 @@ Where:
 
 Examples:
 
-* `add n/Amy Bee i/A0123456X e/amy@u.nus.edu p/11111111 th/@amy_bee t/T01`
-* `add n/Bob Chan i/A0765432Y e/bobchan@u.nus.edu p/99998888 th/@bobchan t/T02`
+* `add n\Amy Bee i\A0123456X e\amy@u.nus.edu p\11111111 th\@amy_bee t\T01`
+* `add n\Bob Chan i\A0765432Y e\bobchan@u.nus.edu p\99998888 th\@bobchan t\T02`
 
 ![add command](images/addCommand.png)
 
@@ -118,12 +118,12 @@ Here are some examples of error messages if the command entered is invalid:
 
 <div style="border: 1px solid #bfbfbf; border-radius: 8px; padding: 10px 12px; margin: 8px 0 12px 0;">
 
-If any non-optional field (`n/`, `i/`, `e/`, `p/`, `t/`) is missing, CLI-Tacts shows the usage message:
+If any non-optional field (`n\`, `i\`, `e\`, `p\`, `t\`) is missing, CLI-Tacts shows the usage message:
 
 <div style="border: 1px solid #d9d9d9; border-radius: 6px; padding: 8px 12px; margin: 8px 0;">
 <code>Invalid command format!<br>
-add: Adds a person to the address book. Parameters: n/NAME i/STUDENT_ID e/EMAIL p/PHONE [th/TELE_HANDLE] t/TUTORIAL_GROUP<br>
-Example: add n/John Doe i/A0123456X e/johnd@u.nus.edu p/98765432 th/@john_doe t/T01</code>
+add: Adds a person to the address book. Parameters: n\NAME i\STUDENT_ID e\EMAIL p\PHONE [th\TELE_HANDLE] t\TUTORIAL_GROUP<br>
+Example: add n\John Doe i\A0123456X e\johnd@u.nus.edu p\98765432 th\@john_doe t\T01</code>
 </div>
 
 If an invalid name is supplied:
@@ -196,7 +196,7 @@ Edits an existing student in CLI-Tacts.
 
 Format:
 
-`edit INDEX [n/NAME] [i/STUDENT_ID] [e/EMAIL] [p/PHONE] [th/TELE_HANDLE] [t/TUTORIAL_GROUP]`
+`edit INDEX [n\NAME] [i\STUDENT_ID] [e\EMAIL] [p\PHONE] [th\TELE_HANDLE] [t\TUTORIAL_GROUP]`
 
 * Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -205,8 +205,8 @@ Format:
 
 Examples:
 
-*  `edit 2 p/99272758 e/berniceyu@u.nus.edu` Edits the phone number and email address of the 2nd student.
-*  `edit 2 t/T03` Moves the 2nd student to tutorial group `T03`.
+*  `edit 2 p\99272758 e\berniceyu@u.nus.edu` Edits the phone number and email address of the 2nd student.
+*  `edit 2 t\T03` Moves the 2nd student to tutorial group `T03`.
 
 ![edit command](images/editCommand.png)
 
@@ -219,8 +219,8 @@ If the index is missing or invalid, CLI-Tacts shows the usage message:
 <div style="border: 1px solid #d9d9d9; border-radius: 6px; padding: 8px 12px; margin: 8px 0;">
 <code>Invalid command format!<br>
 edit: Edits the details of the person identified by the index number used in the displayed person list. Existing values will be overwritten by the input values.<br>
-Parameters: INDEX (must be a positive integer) [n/NAME] [i/STUDENT_ID] [e/EMAIL] [p/PHONE] [th/TELE_HANDLE] [t/TUTORIAL_GROUP]<br>
-Example: edit 1 n/John Doe i/A0123456X e/johndoe@u.nus.edu p/91234567 th/@john_doe</code>
+Parameters: INDEX (must be a positive integer) [n\NAME] [i\STUDENT_ID] [e\EMAIL] [p\PHONE] [th\TELE_HANDLE] [t\TUTORIAL_GROUP]<br>
+Example: edit 1 n\John Doe i\A0123456X e\johndoe@u.nus.edu p\91234567 th\@john_doe</code>
 </div>
 
 If no field is provided, CLI-Tacts shows an error similar to:
@@ -257,34 +257,34 @@ Allows a TA to **filter the student list** to find specific individuals based on
 
 Formats:
 
-* `find n/NAME`
-* `find t/TUTORIAL_GROUP`
-* `find e/EMAIL`
-* `find th/TELE_HANDLE`
-* You can combine any of the above prefixes in one command (e.g. `find n/john t/T01 e/alice@u.nus.edu th/@alice_bot`).
+* `find n\NAME`
+* `find t\TUTORIAL_GROUP`
+* `find e\EMAIL`
+* `find th\TELE_HANDLE`
+* You can combine any of the above prefixes in one command (e.g. `find n\john t\T01 e\alice@u.nus.edu th\@alice_bot`).
 
-At least one of `n/`, `t/`, `e/`, or `th/` must be present.
+At least one of `n\`, `t\`, `e\`, or `th\` must be present.
 
-#### Name (`n/`) filter
+#### Name (`n\`) filter
 
-* **How it works**: Each `n/` field is treated as a separate search term. A student matches if their name contains any of the search terms (OR logic between multiple `n/` fields).
+* **How it works**: Each `n\` field is treated as a separate search term. A student matches if their name contains any of the search terms (OR logic between multiple `n\` fields).
   - Each search term is matched as a **prefix** of any word in the student's full name (case-insensitive).
   - Example: For a student named "John Doe":
-    - `find n/john` matches ✓ (the word "John" starts with "john")
-    - `find n/doe` matches ✓ (the word "Doe" starts with "doe")
-    - `find n/john doe` matches ✓ (words start with "john" and "doe")
-    - `find n/joh do` matches ✗ (no single word starts with the phrase "joh do")
-    - `find n/john n/ann` matches ✓ (name has "john" or "ann" as word prefixes)
-    - `find n/jane` does not match ✗ (no word starts with "jane")
-* **Multiple `n/` fields**: Using multiple `n/` fields lets you search for different names with OR logic.
-  - Example: `find n/john n/ann` matches students whose name contains **"john" OR "ann"** (as word prefixes).
+    - `find n\john` matches ✓ (the word "John" starts with "john")
+    - `find n\doe` matches ✓ (the word "Doe" starts with "doe")
+    - `find n\john doe` matches ✓ (words start with "john" and "doe")
+    - `find n\joh do` matches ✗ (no single word starts with the phrase "joh do")
+    - `find n\john n\ann` matches ✓ (name has "john" or "ann" as word prefixes)
+    - `find n\jane` does not match ✗ (no word starts with "jane")
+* **Multiple `n\` fields**: Using multiple `n\` fields lets you search for different names with OR logic.
+  - Example: `find n\john n\ann` matches students whose name contains **"john" OR "ann"** (as word prefixes).
 * **Case insensitive**: Letter case does not matter.
 
-Example after applying `find n/Ale`:
+Example after applying `find n\Ale`:
 
 ![find by name filter](images/findAle.png)
 
-#### Tutorial group (`t/`) filter
+#### Tutorial group (`t\`) filter
 
 * **Input restrictions**: same format and case-sensitivity rules as `TUTORIAL_GROUP` in `add` / `edit`.
 
@@ -296,48 +296,48 @@ If an invalid tutorial group is supplied, CLI-Tacts shows an error similar to:
 </div>
 </div>
 
-Example after applying `find t/T02`:
+Example after applying `find t\T02`:
 
 ![find by tutorial group filter](images/findT02.png)
 
-#### Email (`e/`) filter
+#### Email (`e\`) filter
 
-* **Prefix matching**: the value after `e/` is treated as a prefix match on email (case-insensitive).  
-  For example, `find e/Cha` can match `charlotte@u.nus.edu`.
+* **Prefix matching**: the value after `e\` is treated as a prefix match on email (case-insensitive).  
+  For example, `find e\Cha` can match `charlotte@u.nus.edu`.
 
-Example after applying `find e/Cha`:
+Example after applying `find e\Cha`:
 
 ![find by email filter](images/findCha.png)
 
-#### Telegram handle (`th/`) filter
+#### Telegram handle (`th\`) filter
 
-* **Prefix matching**: the value after `th/` is treated as a prefix match on the full Telegram handle, **including the `@` symbol** (case-insensitive).  
-  For example, `find th/@ro` matches `@roybala` (both start with `@ro`).
+* **Prefix matching**: the value after `th\` is treated as a prefix match on the full Telegram handle, **including the `@` symbol** (case-insensitive).  
+  For example, `find th\@ro` matches `@roybala` (both start with `@ro`).
 
-Example after applying `find th/@ro`:
+Example after applying `find th\@ro`:
 
 ![find by telegram handle filter](images/findRo.png)
 
 #### Combined filters
 
 **Filter logic:**
-* **Same field type (e.g., multiple `n/` fields)**: OR logic — a student matches if they match **any** of the values.
-  - Example: `find n/john n/ann` matches students with "john" **OR** "ann" in their name.
-* **Different field types (e.g., `n/` and `t/`)**: AND logic — a student matches only if they match **all** specified categories.
-  - Example: `find n/john t/T01` matches students with "john" in their name **AND** in tutorial group T01.
+* **Same field type (e.g., multiple `n\` fields)**: OR logic — a student matches if they match **any** of the values.
+  - Example: `find n\john n\ann` matches students with "john" **OR** "ann" in their name.
+* **Different field types (e.g., `n\` and `t\`)**: AND logic — a student matches only if they match **all** specified categories.
+  - Example: `find n\john t\T01` matches students with "john" in their name **AND** in tutorial group T01.
 * On success, the status bar shows e.g. `5 persons listed!` and the list shows only matching students.
 * If no students match, the list becomes empty and the status shows `0 persons listed!`.
 
 Examples:
-* `find n/j` — finds students whose name has a part starting with `j`.
-* `find n/John` — finds students whose name has a part starting with `John`.
-* `find n/John Do` — finds students whose name has a part starting with `John` **and** a part starting with `Do` (within the same `n/` field).
-* `find n/john n/ann` — finds students whose name has "john" **OR** "ann" (different `n/` fields use OR).
-* `find t/T01` — finds all students from tutorial group `T01`.
-* `find e/alice@u.nus.edu` — finds the student with that email (if present).
-* `find th/@benson_meier` — finds the student with that Telegram handle (if present).
-* `find n/john t/T01` — finds students with "john" **AND** in T01 (different field types use AND).
-* `find n/john t/T01 t/T02` — finds students with "john" **AND** in (T01 **OR** T02) (both AND and OR together).
+* `find n\j` — finds students whose name has a part starting with `j`.
+* `find n\John` — finds students whose name has a part starting with `John`.
+* `find n\John Do` — finds students whose name has a part starting with `John` **and** a part starting with `Do` (within the same `n\` field).
+* `find n\john n\ann` — finds students whose name has "john" **OR** "ann" (different `n\` fields use OR).
+* `find t\T01` — finds all students from tutorial group `T01`.
+* `find e\alice@u.nus.edu` — finds the student with that email (if present).
+* `find th\@benson_meier` — finds the student with that Telegram handle (if present).
+* `find n\john t\T01` — finds students with "john" **AND** in T01 (different field types use AND).
+* `find n\john t\T01 t\T02` — finds students with "john" **AND** in (T01 **OR** T02) (both AND and OR together).
 
 ### Listing all students : `list`
 
@@ -363,7 +363,7 @@ Format: `delete INDEX`
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find n/Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `find n\Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
 ![delete command](images/delete_success.png)
 
@@ -394,7 +394,7 @@ CLI-Tacts supports **three ways to mark attendance** for a given week (positive 
 
 #### Mark one student (by index)
 
-Format: `mark INDEX w/WEEK`
+Format: `mark INDEX w\WEEK`
 
 * `INDEX` is the position in the **currently displayed** student list (`list`, `find`, …).
 * Use this when you want to mark a specific row. Running `mark` again for the **same** student and **same** week will show an error.
@@ -405,7 +405,7 @@ After a successful mark, the list filter resets to show everyone again.
 
 #### Mark multiple students (by indices)
 
-Format: `mark INDEX1 INDEX2 ... w/WEEK`
+Format: `mark INDEX1 INDEX2 ... w\WEEK`
 
 * Provide two or more **space-separated** indices from the **currently displayed** student list.
 * Students **already** marked for that week are **skipped** (no error). The result message states how many were updated and how many were already recorded.
@@ -416,7 +416,7 @@ Format: `mark INDEX1 INDEX2 ... w/WEEK`
 
 #### Mark all students in a tutorial group
 
-Format: `mark t/TUTORIAL_GROUP w/WEEK`
+Format: `mark t\TUTORIAL_GROUP w\WEEK`
 
 * `TUTORIAL_GROUP` uses the same `T` + two digits rule as in `add` / `edit` / `find` (e.g. `T01`, `T12`).
 * Applies to **every student stored** with that tutorial group, **not** only those visible after a `find`.
@@ -432,19 +432,19 @@ Format: `mark t/TUTORIAL_GROUP w/WEEK`
 
 Examples (single student):
 
-* `mark 1 w/2` — marks the 1st student in the displayed list for week 2.
-* `find n/John` followed by `mark 1 w/1` — among students named “John” in the filtered list, marks the 1st for week 1.
-* `find t/T01` followed by `mark 3 w/4` — in the T01-only list, marks the 3rd student for week 4.
+* `mark 1 w\2` — marks the 1st student in the displayed list for week 2.
+* `find n\John` followed by `mark 1 w\1` — among students named “John” in the filtered list, marks the 1st for week 1.
+* `find t\T01` followed by `mark 3 w\4` — in the T01-only list, marks the 3rd student for week 4.
 
 Examples (multiple students):
 
-* `mark 1 2 3 w/5` — marks students at positions 1, 2, and 3 in the displayed list for week 5.
-* `find t/T01` followed by `mark 1 2 w/3` — in the T01-filtered list, marks the 1st and 2nd students for week 3.
+* `mark 1 2 3 w\5` — marks students at positions 1, 2, and 3 in the displayed list for week 5.
+* `find t\T01` followed by `mark 1 2 w\3` — in the T01-filtered list, marks the 1st and 2nd students for week 3.
 
 Example (whole group):
 
-* `mark t/T02 w/2` — marks all students in tutorial group `T02` for week 2.
-* `mark w/2 t/T02` — same as above, with prefix order reversed.
+* `mark t\T02 w\2` — marks all students in tutorial group `T02` for week 2.
+* `mark w\2 t\T02` — same as above, with prefix order reversed.
 
 Here are some examples of error messages if the command entered is invalid:
 
@@ -455,12 +455,12 @@ If the command format is invalid or missing required parameters, CLI-Tacts shows
 <div style="border: 1px solid #d9d9d9; border-radius: 6px; padding: 8px 12px; margin: 8px 0;">
 <code>Invalid command format!<br>
 mark: Marks attendance for one or more persons by list index, or for everyone in a tutorial group.<br>
-Parameters (single): INDEX (positive integer) w/WEEK (positive integer)<br>
-Parameters (multiple): INDEX1 INDEX2 ... (positive integers) w/WEEK (positive integer)<br>
-Parameters (group): t/TUTORIAL_GROUP w/WEEK (positive integer)<br>
-Example (single): mark 1 w/2<br>
-Example (multiple): mark 1 2 3 w/2<br>
-Example (group): mark t/T02 w/2</code>
+Parameters (single): INDEX (positive integer) w\WEEK (positive integer)<br>
+Parameters (multiple): INDEX1 INDEX2 ... (positive integers) w\WEEK (positive integer)<br>
+Parameters (group): t\TUTORIAL_GROUP w\WEEK (positive integer)<br>
+Example (single): mark 1 w\2<br>
+Example (multiple): mark 1 2 3 w\2<br>
+Example (group): mark t\T02 w\2</code>
 </div>
 
 If an index is out of bounds, CLI-Tacts shows an error similar to:
@@ -495,14 +495,14 @@ Unmarks a student's attendance for a specific week during a tutorial session. CL
 
 #### Unmark one student (by index)
 
-Format: `unmark INDEX w/WEEK`
+Format: `unmark INDEX w\WEEK`
 
 * `INDEX` is the position in the **currently displayed** student list (`list`, `find`, …).
 * Use this when you want to unmark a specific student's attendance for a given week.
 
 #### Unmark all students in a tutorial group
 
-Format: `unmark t/TUTORIAL_GROUP w/WEEK`
+Format: `unmark t\TUTORIAL_GROUP w\WEEK`
 
 * `TUTORIAL_GROUP` uses the same `T` + two digits rule as in `add` / `edit` / `find` (e.g. `T01`, `T12`).
 * Applies to **every student stored** with that tutorial group, **not** only those visible after a `find`.
@@ -513,10 +513,10 @@ Where:
 * `WEEK` is the week number to unmark attendance for and **must be a positive integer**
 
 Examples:
-* `unmark 1 w/2` — unmarks the 1st student in the displayed list for week 2.
-* `unmark t/T01 w/4` — unmarks attendance for all marked students in tutorial group T01 for week 4.
-* `unmark w/2 1` — same as the first example, with prefix order reversed.
-* `unmark w/4 t/T01` — same as the second example, with prefix order reversed.
+* `unmark 1 w\2` — unmarks the 1st student in the displayed list for week 2.
+* `unmark t\T01 w\4` — unmarks attendance for all marked students in tutorial group T01 for week 4.
+* `unmark w\2 1` — same as the first example, with prefix order reversed.
+* `unmark w\4 t\T01` — same as the second example, with prefix order reversed.
 
 Here are some examples of error messages if the command entered is invalid:
 
@@ -527,9 +527,9 @@ If the command format is invalid or missing required parameters, CLI-Tacts shows
 <div style="border: 1px solid #d9d9d9; border-radius: 6px; padding: 8px 12px; margin: 8px 0;">
 <code>Invalid command format!<br>
 unmark: Unmarks the person identified by the index number used in the displayed person list as attended, or unmarks the entire tutorial group.<br>
-Parameters: INDEX (must be a positive integer) w/WEEK (must be a positive integer)<br>
-OR: t/TUTORIAL_GROUP w/WEEK (must be a positive integer)<br>
-Examples: unmark 1 w/2, unmark t/T01 w/2</code>
+Parameters: INDEX (must be a positive integer) w\WEEK (must be a positive integer)<br>
+OR: t\TUTORIAL_GROUP w\WEEK (must be a positive integer)<br>
+Examples: unmark 1 w\2, unmark t\T01 w\2</code>
 </div>
 
 If an index is out of bounds, CLI-Tacts shows an error similar to:
@@ -682,13 +682,13 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME i/STUDENT_ID e/EMAIL p/PHONE_NUMBER [th/TELE_HANDLE] t/TUTORIAL_GROUP` <br> e.g., `add n/James Ho i/A0123456X e/jamesho@u.nus.edu p/22224444 th/@jamesho t/T01`
+**Add** | `add n\NAME i\STUDENT_ID e\EMAIL p\PHONE_NUMBER [th\TELE_HANDLE] t\TUTORIAL_GROUP` <br> e.g., `add n\James Ho i\A0123456X e\jamesho@u.nus.edu p\22224444 th\@jamesho t\T01`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [i/STUDENT_ID] [e/EMAIL] [p/PHONE_NUMBER] [th/TELE_HANDLE] [t/TUTORIAL_GROUP]`<br> e.g.,`edit 2 n/James Lee t/T03`
+**Edit** | `edit INDEX [n\NAME] [i\STUDENT_ID] [e\EMAIL] [p\PHONE_NUMBER] [th\TELE_HANDLE] [t\TUTORIAL_GROUP]`<br> e.g.,`edit 2 n\James Lee t\T03`
 **Export** | `export`
-**Find** | `find [n/NAME] [t/TUTORIAL_GROUP] [e/EMAIL] [th/TELE_HANDLE]`<br> e.g., `find n/James t/T01 e/james@u.nus.edu`
+**Find** | `find [n\NAME] [t\TUTORIAL_GROUP] [e\EMAIL] [th\TELE_HANDLE]`<br> e.g., `find n\James t\T01 e\james@u.nus.edu`
 **List** | `list`
-**Mark** | `mark INDEX w/WEEK`<br> `mark INDEX1 INDEX2 ... w/WEEK`<br> `mark t/TUTORIAL_GROUP w/WEEK`<br> e.g., `mark 1 w/2` or `mark 1 2 3 w/5` or `mark t/T02 w/2`
-**Unmark** | `unmark INDEX w/WEEK`<br> e.g., `unmark 1 w/2` or `unmark t/T01 w/2`
+**Mark** | `mark INDEX w\WEEK`<br> `mark INDEX1 INDEX2 ... w\WEEK`<br> `mark t\TUTORIAL_GROUP w\WEEK`<br> e.g., `mark 1 w\2` or `mark 1 2 3 w\5` or `mark t\T02 w\2`
+**Unmark** | `unmark INDEX w\WEEK`<br> e.g., `unmark 1 w\2` or `unmark t\T01 w\2`
 **Help** | `help`
