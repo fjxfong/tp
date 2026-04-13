@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.TeleHandle;
 
 /**
  * The API of the Model component.
@@ -68,6 +69,9 @@ public interface Model {
      * Returns true if any person in the address book (excluding {@code excludePerson}) has the given {@code phone}.
      */
     boolean hasPersonWithPhone(Phone phone, Person excludePerson);
+
+    /** Returns true if any person (excluding {@code excludePerson}) has the given {@code teleHandle}. */
+    boolean hasPersonWithTeleHandle(TeleHandle teleHandle, Person excludePerson);
 
     /**
      * Deletes the given person.

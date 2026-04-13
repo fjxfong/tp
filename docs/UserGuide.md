@@ -186,6 +186,10 @@ If a student with the same phone number already exists:
 <code>This phone number is already used by another student.</code>
 </div>
 
+If a student with the same Telegram handle already exists:
+<div style="border: 1px solid #d9d9d9; border-radius: 6px; padding: 8px 12px; margin: 8px 0;">
+<code>This Telegram handle is already used by another student.</code>
+</div>
 </div>
 ### Listing all students : `list`
 

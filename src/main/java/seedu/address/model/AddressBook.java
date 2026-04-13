@@ -9,6 +9,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.TeleHandle;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -87,6 +88,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList().stream()
                 .filter(p -> !p.equals(excludePerson))
                 .anyMatch(p -> p.getPhone().equals(phone));
+    }
+
+    /** Checks if any person (excluding {@code excludePerson}) has the given {@code teleHandle}. */
+    public boolean hasPersonWithTeleHandle(TeleHandle teleHandle, Person excludePerson) {
+        requireNonNull(teleHandle);
+        return persons.asUnmodifiableObservableList().stream().filter(p -> !p.equals(excludePerson))
+                .anyMatch(p -> p.getTeleHandle().map(th -> th.equals(teleHandle)).orElse(false));
     }
 
     /**

@@ -41,6 +41,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This ID already exists in the address book.";
     public static final String MESSAGE_DUPLICATE_EMAIL = "This email is already used by another student.";
     public static final String MESSAGE_DUPLICATE_PHONE = "This phone number is already used by another student.";
+    public static final String MESSAGE_DUPLICATE_TELE_HANDLE =
+            "This Telegram handle is already used by another student.";
 
     private final Person toAdd;
 
@@ -65,6 +67,10 @@ public class AddCommand extends Command {
         }
         if (model.hasPersonWithPhone(toAdd.getPhone(), null)) {
             throw new CommandException(MESSAGE_DUPLICATE_PHONE);
+        }
+        if (toAdd.getTeleHandle().isPresent()
+                && model.hasPersonWithTeleHandle(toAdd.getTeleHandle().get(), null)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TELE_HANDLE);
         }
 
         model.addPerson(toAdd);

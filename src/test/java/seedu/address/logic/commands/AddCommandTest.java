@@ -25,6 +25,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.TeleHandle;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -185,6 +186,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasPersonWithTeleHandle(TeleHandle teleHandle, Person excludePerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -231,6 +237,11 @@ public class AddCommandTest {
         public boolean hasPersonWithPhone(Phone phone, Person excludePerson) {
             return !this.person.equals(excludePerson) && this.person.getPhone().equals(phone);
         }
+
+        @Override
+        public boolean hasPersonWithTeleHandle(TeleHandle teleHandle, Person excludePerson) {
+            return !this.person.equals(excludePerson) && this.person.getTeleHandle().isPresent();
+        }
     }
 
     /**
@@ -257,6 +268,11 @@ public class AddCommandTest {
             return personsAdded.stream()
                     .filter(p -> !p.equals(excludePerson))
                     .anyMatch(p -> p.getPhone().equals(phone));
+        }
+
+        @Override
+        public boolean hasPersonWithTeleHandle(TeleHandle teleHandle, Person excludePerson) {
+            return false;
         }
 
         @Override

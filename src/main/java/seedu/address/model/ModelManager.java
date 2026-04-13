@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.TeleHandle;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -105,6 +106,11 @@ public class ModelManager implements Model {
     public boolean hasPersonWithPhone(Phone phone, Person excludePerson) {
         requireNonNull(phone);
         return addressBook.hasPersonWithPhone(phone, excludePerson);
+    }
+
+    @Override
+    public boolean hasPersonWithTeleHandle(TeleHandle teleHandle, Person excludePerson) {
+        return addressBook.hasPersonWithTeleHandle(teleHandle, excludePerson);
     }
 
     @Override
