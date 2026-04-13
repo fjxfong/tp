@@ -10,7 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters, spaces, forward slashes, hyphens, commas, and apostrophes. "
+            "Names should only contain alphanumeric characters, spaces, forward slashes, "
+            + "hyphens, commas, and apostrophes. "
             + "The first character must be alphanumeric. "
             + "Names must be at most 54 characters long.";
     public static final int MAX_NAME_LENGTH = 54;
