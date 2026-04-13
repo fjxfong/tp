@@ -29,14 +29,14 @@ import seedu.address.model.person.TeleHandle;
 import seedu.address.model.person.TutorialGroup;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing student in the address book.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the student identified "
+            + "by the index number used in the displayed student list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -52,12 +52,12 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_TELE_HANDLE + "@john_doe";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Student: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_DUPLICATE_STUDENT_ID = "This student ID is already used by another person.";
-    public static final String MESSAGE_DUPLICATE_EMAIL = "This email is already used by another person.";
-    public static final String MESSAGE_DUPLICATE_PHONE = "This phone number is already used by another person.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_STUDENT_ID = "This student ID is already used by another student.";
+    public static final String MESSAGE_DUPLICATE_EMAIL = "This email is already used by another student.";
+    public static final String MESSAGE_DUPLICATE_PHONE = "This phone number is already used by another student.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;

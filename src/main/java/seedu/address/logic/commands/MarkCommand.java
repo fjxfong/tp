@@ -28,7 +28,7 @@ public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks attendance for one or more persons by list index, or for everyone in a tutorial group.\n"
+            + ": Marks attendance for one or more students by list index, or for everyone in a tutorial group.\n"
             + "Parameters (single): INDEX (positive integer) "
             + PREFIX_WEEK + "WEEK (positive integer)\n"
             + "Parameters (multiple): INDEX1 INDEX2 ... (positive integers) "
@@ -39,7 +39,7 @@ public class MarkCommand extends Command {
             + "Example (multiple): " + COMMAND_WORD + " 1 2 3 " + PREFIX_WEEK + "2\n"
             + "Example (group): " + COMMAND_WORD + " " + PREFIX_TUTORIAL_GROUP + "T02 " + PREFIX_WEEK + "2";
 
-    public static final String MESSAGE_MARK_PERSON_SUCCESS = "Marked Person: %1$s";
+    public static final String MESSAGE_MARK_PERSON_SUCCESS = "Marked Student: %1$s";
     public static final String MESSAGE_ALREADY_MARKED = "%1$s has already been marked"
                                 + " as attended for week %2$s.";
     public static final String MESSAGE_MARK_GROUP_SUCCESS =

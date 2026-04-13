@@ -25,7 +25,7 @@ public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Unmarks the person identified by the index number used in the displayed person list "
+            + ": Unmarks the student identified by the index number used in the displayed student list "
             + "as attended, or unmarks the entire tutorial group.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_WEEK + "WEEK (must be a positive integer)\n"
@@ -34,15 +34,15 @@ public class UnmarkCommand extends Command {
             + "Examples: " + COMMAND_WORD + " 1 " + PREFIX_WEEK + "2"
             + ", " + COMMAND_WORD + " " + PREFIX_TUTORIAL_GROUP + "T01 " + PREFIX_WEEK + "2";
 
-    public static final String MESSAGE_UNMARK_PERSON_SUCCESS = "Unmarked Person: %1$s";
+    public static final String MESSAGE_UNMARK_PERSON_SUCCESS = "Unmarked Student: %1$s";
     public static final String MESSAGE_UNMARK_GROUP_SUCCESS =
-            "Unmarked %1$d person(s) in tutorial group %2$s for week %3$d.";
+            "Unmarked %1$d student(s) in tutorial group %2$s for week %3$d.";
     public static final String MESSAGE_ALREADY_UNMARKED =
-            "This person is already unmarked for this week.";
+            "This student is already unmarked for this week.*";
     public static final String MESSAGE_GROUP_NOT_FOUND =
             "No students found in tutorial group: %1$s.";
     public static final String MESSAGE_GROUP_ALREADY_UNMARKED =
-            "All persons in tutorial group %1$s are already unmarked for week %2$d.";
+            "All students in tutorial group %1$s are already unmarked for week %2$d.";
     public static final String MESSAGE_INVALID_WEEK = "Week must be a positive integer between 1 and 13.";
 
     private final Index index;

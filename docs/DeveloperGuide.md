@@ -281,12 +281,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case ends.
 
 * 3b. A student with the same email already exists.
-    * 3b1. CLI-Tacts shows an error message: "This email is already used by another person."
+    * 3b1. CLI-Tacts shows an error message: "This email is already used by another student."
 
       Use case ends.
 
 * 3c. A student with the same phone number already exists.
-    * 3c1. CLI-Tacts shows an error message: "This phone number is already used by another person."
+    * 3c1. CLI-Tacts shows an error message: "This phone number is already used by another student."
 
       Use case ends.
 
@@ -326,17 +326,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 3.
 
 * 5a. The new student ID is already used by another student.
-    * 5a1. CLI-Tacts shows an error message: "This student ID is already used by another person."
+    * 5a1. CLI-Tacts shows an error message: "This student ID is already used by another student."
 
       Use case resumes at step 3.
 
 * 5b. The new email is already used by another student.
-    * 5b1. CLI-Tacts shows an error message: "This email is already used by another person."
+    * 5b1. CLI-Tacts shows an error message: "This email is already used by another student."
 
       Use case resumes at step 3.
 
 * 5c. The new phone is already used by another student.
-    * 5c1. CLI-Tacts shows an error message: "This phone number is already used by another person."
+    * 5c1. CLI-Tacts shows an error message: "This phone number is already used by another student."
 
       Use case resumes at step 3.
 
@@ -468,7 +468,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case ends.
 
 * 3a. No student matches all the specified criteria.
-    * 3a1. CLI-Tacts displays an empty list with "0 persons listed!" message.
+    * 3a1. CLI-Tacts displays an empty list with "0 students listed!" message.
 
       Use case ends.
 
@@ -485,7 +485,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 2a. No students are in the address book.
-    * 2a1. CLI-Tacts displays an empty list with "0 persons listed!" message.
+    * 2a1. CLI-Tacts displays an empty list with "0 students listed!" message.
 
       Use case ends.
 
@@ -668,17 +668,17 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
+### Deleting a student
 
-1. Deleting a person while all persons are being shown
+1. Deleting a student while all students are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: List all students using the `list` command. Multiple students in the list.
 
    1. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
    1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No student is deleted. Error details shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
